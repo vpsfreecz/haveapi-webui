@@ -3,11 +3,11 @@ import ResourceIndex from '../containers/resource_index'
 
 var Resource = React.createClass({
 	render: function () {
-		var r = this.context.api[this.props.params.name];
+		var r = this.context.api[this.props.params.resource];
 
 		return (
 			<div>
-				<h3>Resource {this.props.params.name}</h3>
+				<h3>Resource {this.props.params.resource}</h3>
 				{/*
 				<h4>Actions</h4>
 				<ul>
@@ -25,7 +25,7 @@ var Resource = React.createClass({
 				*/}
 
 				<h4>Index</h4>
-				<ResourceIndex name={this.props.params.name} />
+				<ResourceIndex name={this.props.params.resource} />
 			</div>
 		);
 	}
