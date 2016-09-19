@@ -1,5 +1,6 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
+import OutputParameter from './output_parameter'
 
 var ResourceIndex = React.createClass({
 	getInitialState: function () {
@@ -49,16 +50,6 @@ var ResourceIndex = React.createClass({
 		});
 	},
 
-	renderParam: function (name, desc, resource) {
-		switch (desc.type) {
-			case 'Resource':
-				return resource[name + '_id']
-
-			default:
-				return resource[name];
-		}
-	},
-
 	render: function () {
 		console.log('render resource index');
 
@@ -95,7 +86,9 @@ var ResourceIndex = React.createClass({
 						{this.state.list.items.map(r => (
 							<tr key={i++}>
 								{cols.map(c => (
-									<td key={i++}>{this.renderParam(c, output_params[c], r)}</td>
+									<td key={i++}>
+										<OutputParameter name={c} resource={r} desc={output_params[c]} />
+									</td>
 								))}
 							</tr>
 						))}
