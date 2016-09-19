@@ -2,6 +2,7 @@ import React from 'react'
 import HaveAPI from '../haveapi-client'
 import {Row, Col, Navbar} from 'react-bootstrap'
 import LoginForm from '../containers/login_form'
+import ResourceName from './resource_name'
 import Config from '../config'
 import {LinkTo} from '../utils'
 
@@ -95,7 +96,7 @@ var ApiPage = React.createClass({
 								{this.state.resources.map(r => (
 									<li key={r} className={r == this.props.params.resource ? 'active' : ''}>
 										<LinkTo api={this.props.params.url} to={r}>
-											{r.replace(/_/g, ' ')}
+											<ResourceName resource={r} />
 										</LinkTo>
 									</li>
 								))}

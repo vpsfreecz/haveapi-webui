@@ -1,4 +1,5 @@
 import React from 'react'
+import ResourceName from '../components/resource_name'
 import ResourceIndex from '../containers/resource_index'
 
 var Resource = React.createClass({
@@ -7,7 +8,7 @@ var Resource = React.createClass({
 
 		return (
 			<div>
-				<h3>Resource {this.props.params.resource}</h3>
+				<h3>Resource <ResourceName resource={this.props.params.resource} /></h3>
 				{/*
 				<h4>Actions</h4>
 				<ul>
