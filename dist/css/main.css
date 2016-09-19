@@ -1,0 +1,7 @@
+ul.resource-list {
+    text-transform: capitalize;
+}
+
+ul.resource-list li {
+    list-style-type: none;
+}
