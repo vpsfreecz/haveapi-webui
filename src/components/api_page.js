@@ -1,11 +1,13 @@
 var React = require('react');
-var Link = require('react-router').Link;
 var HaveAPI = require('../haveapi-client');
 var Bs = require('react-bootstrap');
 var Row = Bs.Row;
 var Col = Bs.Col;
 var Navbar = Bs.Navbar;
 var LoginForm = require('../containers/login_form');
+
+import Config from '../config'
+import {LinkTo} from '../utils'
 
 var ApiPage = React.createClass({
 	getInitialState: function () {
@@ -20,7 +22,7 @@ var ApiPage = React.createClass({
 	},
 
 	componentDidMount: function () {
-		this.api = new HaveAPI.Client(this.props.params.url);
+		this.api = new HaveAPI.Client(Config.api_url || this.props.params.url);
 		var that = this;
 		var token = sessionStorage.getItem('auth_token');
 
@@ -64,7 +66,7 @@ var ApiPage = React.createClass({
 					<Navbar>
 						<Navbar.Header>
 							<Navbar.Brand>
-								<a href="#">{this.props.params.url}</a>
+								<a href="#">{Config.api_url || this.props.params.url}</a>
 							</Navbar.Brand>
 						</Navbar.Header>
 						<Navbar.Collapse>
@@ -80,7 +82,7 @@ var ApiPage = React.createClass({
 								<ul>
 									{this.state.resources.map(r => (
 										<li key={r}>
-											<Link to={'/api/'+encodeURIComponent(this.props.params.url)+'/'+r}>{r}</Link>
+											<LinkTo api={this.props.params.url} to={r}>{r}</LinkTo>
 										</li>
 									))}
 								</ul>
