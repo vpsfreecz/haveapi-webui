@@ -5,3 +5,7 @@ ul.resource-list {
 ul.resource-list li {
     list-style-type: none;
 }
+
+ul.resource-list li.active {
+    font-weight: bold;
+}
