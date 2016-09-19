@@ -1,4 +1,6 @@
 var React = require('react');
+var Bs = require('react-bootstrap');
+var Table = Bs.Table;
 
 var ResourceIndex = React.createClass({
 	getInitialState: function () {
@@ -81,7 +83,7 @@ var ResourceIndex = React.createClass({
 			var i = 0;
 
 			return (
-				<table className="resource-index">
+				<Table striped bordered condensed hover className="resource-index">
 					<thead>
 						<tr>
 							{cols.map(c => (
@@ -98,7 +100,7 @@ var ResourceIndex = React.createClass({
 							</tr>
 						))}
 					</tbody>
-				</table>
+				</Table>
 			);
 
 		} else {

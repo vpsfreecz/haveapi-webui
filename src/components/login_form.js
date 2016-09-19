@@ -1,4 +1,8 @@
 var React = require('react');
+var Bs = require('react-bootstrap');
+var FormGroup = Bs.FormGroup;
+var FormControl = Bs.FormControl;
+var Button = Bs.Button;
 
 var LoginForm = React.createClass({
 	getInitialState: function () {
@@ -8,16 +12,23 @@ var LoginForm = React.createClass({
 		};
 	},
 
+	handleChange: function (e, field) {
+		change = {}
+		change[field] = e.target.value;
+
+		this.setState(Object.assign({}, this.state, change));
+	},
+
 	login: function (e) {
 		e.preventDefault();
 
-		console.log('login', this.state);
+		console.log('login', this.state, this.username, this.password);
 
 		var that = this;
 
 		this.context.api.authenticate('token', {
-			username: this.username.value,
-			password: this.password.value,
+			username: this.state.username,
+			password: this.state.password,
 		}, function (c, status) {
 			console.log('result: ', c, status);
 			console.log(c.authProvider.token);
@@ -42,13 +53,15 @@ var LoginForm = React.createClass({
 
 	render: function () {
 		if (this.props.authenticated) {
-			return <button className="logout" onClick={this.logout}>Logout</button>;
+			return <Button className="logout" onClick={this.logout}>Logout</Button>;
 
 		} else return (
-			<form className="login" onSubmit={this.login}>
-				<input type="text" placeholder="Username" ref={(ref) => this.username = ref} />
-				<input type="password" placeholder="Password" ref={(ref) => this.password = ref} />
-				<input type="submit" value="Login" />
+			<form onSubmit={this.login}>
+				<FormGroup>
+					<FormControl type="text" placeholder="Username" onChange={e => this.handleChange(e, 'username')} />
+					<FormControl type="password" placeholder="Password" onChange={e => this.handleChange(e, 'password')} />
+					<Button type="submit">Login</Button>
+				</FormGroup>
 			</form>
 		);
 	}

@@ -1,6 +1,10 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var HaveAPI = require('../haveapi-client');
+var Bs = require('react-bootstrap');
+var Row = Bs.Row;
+var Col = Bs.Col;
+var Navbar = Bs.Navbar;
 var LoginForm = require('../containers/login_form');
 
 var ApiPage = React.createClass({
@@ -57,21 +61,37 @@ var ApiPage = React.createClass({
 		if (this.api) {
 			return (
 				<div className="api">
-					<LoginForm />
-					<div className="list">
-						<h2>{this.props.params.url}</h2>
-						<ul>
-							{this.state.resources.map(r => (
-								<li key={r}>
-									<Link to={'/api/'+encodeURIComponent(this.props.params.url)+'/'+r}>{r}</Link>
-								</li>
-							))}
-						</ul>
-					</div>
+					<Navbar>
+						<Navbar.Header>
+							<Navbar.Brand>
+								<a href="#">{this.props.params.url}</a>
+							</Navbar.Brand>
+						</Navbar.Header>
+						<Navbar.Collapse>
+							<Navbar.Form pullRight>
+								<LoginForm />
+							</Navbar.Form>
+						</Navbar.Collapse>
+					</Navbar>
 
-					<div className="resource">
-						{this.props.children}
-					</div>
+					<Row>
+						<Col md={2}>
+							<div className="list">
+								<ul>
+									{this.state.resources.map(r => (
+										<li key={r}>
+											<Link to={'/api/'+encodeURIComponent(this.props.params.url)+'/'+r}>{r}</Link>
+										</li>
+									))}
+								</ul>
+							</div>
+						</Col>
+						<Col md={10}>
+							<div className="resource">
+								{this.props.children}
+							</div>
+						</Col>
+					</Row>
 				</div>
 			);
 
