@@ -25,6 +25,7 @@ var ResourceIndex = React.createClass({
 			list: null,
 			authenticated: props.authenticated,
 		});
+
 		this.fetchList(this.context.api[props.name]);
 	},
 
@@ -66,10 +67,10 @@ var ResourceIndex = React.createClass({
 			if (!this.state.list.length)
 				return <p>No objects found.</p>;
 
-			output_params = this.context.api[this.props.name]._private.description.actions.index.output.parameters;
+			var output_params = this.context.api[this.props.name]._private.description.actions.index.output.parameters;
 			console.log(output_params);
 
-			cols = [];
+			var cols = [];
 
 			for (var p in output_params) {
 				if (!output_params.hasOwnProperty(p))

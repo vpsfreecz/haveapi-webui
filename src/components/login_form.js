@@ -13,7 +13,7 @@ var LoginForm = React.createClass({
 	},
 
 	handleChange: function (e, field) {
-		change = {}
+		var change = {}
 		change[field] = e.target.value;
 
 		this.setState(Object.assign({}, this.state, change));
