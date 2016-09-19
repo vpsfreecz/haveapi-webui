@@ -9,11 +9,12 @@ var ControlLabel = Bs.ControlLabel;
 var FormControl = Bs.FormControl;
 var Button = Bs.Button;
 
+import Config from '../config'
+
 var ApiSelector = React.createClass({
 	getInitialState: function () {
 		return {
-			//url: 'https://api.vpsfree.cz',
-			url: 'http://192.168.122.11:4567',
+			url: Config.default_api_url || '',
 		};
 	},
 
