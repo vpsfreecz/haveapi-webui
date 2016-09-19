@@ -35,7 +35,7 @@ var ApiPage = React.createClass({
 		} else {
 			this.api.setup(function () {
 				that.setState({
-					resources: that.api.resources,
+					resources: that.unauthenticatedResources(that.api.resources),
 					authenticated: false,
 				});
 			});
@@ -53,6 +53,23 @@ var ApiPage = React.createClass({
 				authenticated: nextProps.authenticated,
 			});
 		}
+	},
+
+	unauthenticatedResources: function (resources) {
+		var ret = [];
+		var that = this;
+
+		resources.forEach(function (r) {
+			var rObj = that.api[r];
+			var unauth = rObj.actions.find(function (a) {
+				return !rObj[a].description.auth;
+			});
+
+			if (unauth)
+				ret.push(r);
+		});
+
+		return ret;
 	},
 
 	render: function () {
