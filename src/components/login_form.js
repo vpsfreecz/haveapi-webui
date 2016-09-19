@@ -1,8 +1,5 @@
-var React = require('react');
-var Bs = require('react-bootstrap');
-var FormGroup = Bs.FormGroup;
-var FormControl = Bs.FormControl;
-var Button = Bs.Button;
+import React from 'react'
+import {FormGroup, FormControl, Button} from 'react-bootstrap'
 
 var LoginForm = React.createClass({
 	getInitialState: function () {
@@ -71,4 +68,4 @@ LoginForm.contextTypes = {
 	api: React.PropTypes.object,
 };
 
-module.exports = LoginForm;
+export default LoginForm;

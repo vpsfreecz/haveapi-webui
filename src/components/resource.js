@@ -1,5 +1,5 @@
-var React = require('react');
-var ResourceIndex = require('../containers/resource_index');
+import React from 'react'
+import ResourceIndex from '../containers/resource_index'
 
 var Resource = React.createClass({
 	render: function () {
@@ -35,4 +35,4 @@ Resource.contextTypes = {
 	api: React.PropTypes.object,
 };
 
-module.exports = Resource;
+export default Resource;

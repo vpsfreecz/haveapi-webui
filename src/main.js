@@ -1,24 +1,19 @@
-var React = require('react');
-
-var ReactDOM = require('react-dom');
-var Router = require('react-router').Router;
-var Route = require('react-router').Route;
-var IndexRoute = require('react-router').IndexRoute;
-var Redux = require('redux');
-var ReactRedux = require('react-redux');
-var BasePage = require('./components/base_page');
-var ApiSelector = require('./components/api_selector');
-var ApiPage = require('./containers/api_page');
-var Resource = require('./components/resource');
-
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Router, IndexRoute, Route} from 'react-router'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import BasePage from './components/base_page'
+import ApiSelector from './components/api_selector'
+import ApiPage from './containers/api_page'
+import Resource from './components/resource'
 import Config from './config';
+import {reducer} from './reducers'
 
-var store = Redux.createStore(require('./reducers'));
-
-console.log('cfg:', Config);
+var store = createStore(reducer);
 
 ReactDOM.render(
-	<ReactRedux.Provider store={store}>
+	<Provider store={store}>
 		<Router>
 			{
 				Config.api_url ?
@@ -34,6 +29,6 @@ ReactDOM.render(
 				</Route>
 			}
 		</Router>
-	</ReactRedux.Provider>,
+	</Provider>,
 	document.getElementById('container')
 );

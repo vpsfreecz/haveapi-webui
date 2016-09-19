@@ -1,5 +1,5 @@
-var ReactRedux = require('react-redux');
-var ResourceIndex = require('../components/resource_index');
+import {connect} from 'react-redux'
+import ResourceIndex from '../components/resource_index'
 
 var mapStateToProps = function (state) {
 	console.log('map state to props', state);
@@ -16,4 +16,4 @@ var mapDispatchToProps = function (dispatch) {
 	return {};
 };
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ResourceIndex);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(ResourceIndex);

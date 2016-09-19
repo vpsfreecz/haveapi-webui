@@ -1,4 +1,4 @@
-module.exports = function (state, action) {
+export function reducer (state, action) {
 	if (state === undefined) {
 		return {
 			authenticated: sessionStorage.getItem('auth_token') ? true : false,

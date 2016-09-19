@@ -1,17 +1,9 @@
-var React = require('react');
-var Link = require('react-router').Link;
-var Bs = require('react-bootstrap');
-var Row = Bs.Row;
-var Col = Bs.Col;
-var Form = Bs.Form;
-var FormGroup = Bs.FormGroup;
-var ControlLabel = Bs.ControlLabel;
-var FormControl = Bs.FormControl;
-var Button = Bs.Button;
-
+import React from 'react'
+import {Link} from 'react-router';
+import {Row, Col, Form, FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
 import Config from '../config'
 
-var ApiSelector = React.createClass({
+export default React.createClass({
 	getInitialState: function () {
 		return {
 			url: Config.default_api_url || '',
@@ -43,5 +35,3 @@ var ApiSelector = React.createClass({
 		);
 	}
 });
-
-module.exports = ApiSelector;

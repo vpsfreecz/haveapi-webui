@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react'
 
-var BasePage = React.createClass({
+export default React.createClass({
 	render: function () {
 		return (
 			<div className="page">
@@ -9,5 +9,3 @@ var BasePage = React.createClass({
 		);
 	}
 });
-
-module.exports = BasePage;

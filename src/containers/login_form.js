@@ -1,5 +1,5 @@
-var ReactRedux = require('react-redux');
-var LoginForm = require('../components/login_form');
+import {connect} from 'react-redux'
+import LoginForm from '../components/login_form'
 
 var mapStateToProps = function (state) {
 	console.log('map state to props', state);
@@ -24,4 +24,4 @@ var mapDispatchToProps = function (dispatch) {
 	};
 };
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(LoginForm);

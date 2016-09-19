@@ -1,5 +1,5 @@
-var ReactRedux = require('react-redux');
-var ApiPage = require('../components/api_page');
+import {connect} from 'react-redux'
+import ApiPage from '../components/api_page'
 
 var mapStateToProps = function (state) {
 	console.log('map state to props', state);
@@ -10,4 +10,4 @@ var mapStateToProps = function (state) {
 	return state;
 };
 
-module.exports = ReactRedux.connect(mapStateToProps)(ApiPage);
+module.exports = connect(mapStateToProps)(ApiPage);

@@ -1,6 +1,5 @@
-var React = require('react');
-var Bs = require('react-bootstrap');
-var Table = Bs.Table;
+import React from 'react'
+import {Table} from 'react-bootstrap'
 
 var ResourceIndex = React.createClass({
 	getInitialState: function () {
@@ -114,4 +113,4 @@ ResourceIndex.contextTypes = {
 	api: React.PropTypes.object,
 };
 
-module.exports = ResourceIndex;
+export default ResourceIndex;

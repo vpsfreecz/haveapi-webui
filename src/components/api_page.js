@@ -1,11 +1,7 @@
-var React = require('react');
-var HaveAPI = require('../haveapi-client');
-var Bs = require('react-bootstrap');
-var Row = Bs.Row;
-var Col = Bs.Col;
-var Navbar = Bs.Navbar;
-var LoginForm = require('../containers/login_form');
-
+import React from 'react'
+import HaveAPI from '../haveapi-client'
+import {Row, Col, Navbar} from 'react-bootstrap'
+import LoginForm from '../containers/login_form'
 import Config from '../config'
 import {LinkTo} from '../utils'
 
@@ -105,4 +101,4 @@ ApiPage.childContextTypes = {
 	api: React.PropTypes.object,
 };
 
-module.exports = ApiPage;
+export default ApiPage;
