@@ -95,7 +95,7 @@ var ApiPage = React.createClass({
 							<ul className="resource-list">
 								{this.state.resources.map(r => (
 									<li key={r} className={r == this.props.params.resource ? 'active' : ''}>
-										<LinkTo api={this.props.params.url} to={r}>
+										<LinkTo to={r}>
 											<ResourceName resource={r} />
 										</LinkTo>
 									</li>

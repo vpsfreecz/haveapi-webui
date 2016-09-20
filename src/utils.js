@@ -13,14 +13,23 @@ export function linkTo(api, ...args) {
 	return '/' + ret.concat(args).join('/');
 }
 
-export function LinkTo({to, children, api}) {
-	var link;
+var LinkTo = React.createClass({
+	render: function () {
+		var link;
+		var url = this.context.api._private.url;
 
-	if (to instanceof Array)
-		link = linkTo(api, ...to);
+		if (this.props.to instanceof Array)
+			link = linkTo(url, ...this.props.to);
 
-	else
-		link = linkTo(api, to);
+		else
+			link = linkTo(url, this.props.to);
 
-	return <Link to={link}>{children}</Link>;
-}
+		return <Link to={link}>{this.props.children}</Link>;
+	}
+});
+
+LinkTo.contextTypes = {
+	api: React.PropTypes.object,
+};
+
+export {LinkTo};
