@@ -1,7 +1,7 @@
 import React from 'react'
-import {LinkTo} from '../utils'
+import {LinkTo, resourcePath} from '../utils'
 
-export default React.createClass({
+var ResourceActions = React.createClass({
 	render: function () {
 		var name = this.props.resource._private.name;
 
@@ -10,9 +10,17 @@ export default React.createClass({
 				{this.props.resource.actions.filter(action => (
 					!this.props.resource[action].description.url.contains(':'+name+'_id')
 				)).map(action => (
-					<li key={action}><LinkTo to={[name, action]}>{action}</LinkTo></li>
+					<li key={action}>
+						<LinkTo to={[resourcePath(this.props.resource).join('.'), action, this.context.url_params.join(',')]}>{action}</LinkTo>
+					</li>
 				))}
 			</ul>
 		);
 	},
 });
+
+ResourceActions.contextTypes = {
+	url_params: React.PropTypes.array,
+};
+
+export default ResourceActions;

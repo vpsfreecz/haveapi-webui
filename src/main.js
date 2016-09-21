@@ -20,18 +20,18 @@ ReactDOM.render(
 			{
 				Config.api_url ?
 				<Route path="/" component={ApiPage}>
-					<Route path=":resource" component={Resource}>
-						<Route path="show/:id" component={Instance} />
-						<Route path=":action" component={Action} />
+					<Route path=":resources" component={Resource}>
+						<Route path="show/:ids" component={Instance} />
+						<Route path=":action(/:ids)" component={Action} />
 					</Route>
 				</Route>
 				:
 				<Route path="/" component={BasePage}>
 					<IndexRoute component={ApiSelector} />
 					<Route path="api/:url" component={ApiPage}>
-						<Route path=":resource" component={Resource}>
-							<Route path="show/:id" component={Instance} />
-							<Route path=":action" component={Action} />
+						<Route path=":resources" component={Resource}>
+							<Route path="show/:ids" component={Instance} />
+							<Route path=":action(/:ids)" component={Action} />
 						</Route>
 					</Route>
 				</Route>

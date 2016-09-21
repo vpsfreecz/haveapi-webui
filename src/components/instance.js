@@ -1,5 +1,8 @@
 import React from 'react'
+import InstanceActions from './instance_actions'
+import SubResources from './sub_resources'
 import Output from './action/output'
+import {resolveAction} from '../utils'
 
 var Instance = React.createClass({
 	getInitialState: function () {
@@ -10,17 +13,23 @@ var Instance = React.createClass({
 	},
 
 	componentDidMount: function () {
-		this.fetch(this.context.api[this.props.params.resource].show, this.props.params.id);
+		this.fetch(this.props);
 	},
 
 	componentWillReceiveProps: function (nextProps) {
-		this.fetch(this.context.api[nextProps.params.resource].show, nextProps.params.id);
+		this.fetch(nextProps);
 	},
 
-	fetch: function (action, id) {
+	fetch: function (props) {
 		var that = this;
+		var action = resolveAction(
+			this.context.api,
+			props.params.resources,
+			'show',
+			props.params.ids,
+		);
 
-		action.invoke(id, function (c, reply) {
+		action.invoke(function (c, reply) {
 			that.setState({
 				action: action,
 				response: reply,
@@ -34,11 +43,18 @@ var Instance = React.createClass({
 
 		return (
 			<div className="resource-instance">
-				<Output action={this.state.action} response={this.state.response} />
+				<InstanceActions resource={this.state.response} />
+				<SubResources resource={this.state.response} ids={this.props.params.ids} />
+
+				{this.props.children || <Output action={this.state.action} response={this.state.response} />}
 			</div>
 		);
 	}
 });
+
+Instance.childContextTypes = {
+	url_params: React.PropTypes.array,
+};
 
 Instance.contextTypes = {
 	api: React.PropTypes.object,

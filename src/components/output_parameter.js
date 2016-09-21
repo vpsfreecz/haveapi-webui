@@ -1,5 +1,5 @@
 import React from 'react'
-import {LinkTo} from '../utils'
+import {LinkTo, resourcePath} from '../utils'
 
 function formatParameter (name, resource, desc) {
 	switch (desc.type) {
@@ -30,14 +30,30 @@ function formatParameter (name, resource, desc) {
 	}
 }
 
-export default function ({name, resource, desc}) {
-	var data = formatParameter(name, resource, desc);
+var OutputParameter = React.createClass({
+	render: function () {
+		var data = formatParameter(
+			this.props.name,
+			this.props.resource,
+			this.props.desc
+		);
 
-	if (desc.type == 'Custom')
-		return <pre><code className="parameter">{data}</code></pre>;
+		if (this.props.desc.type == 'Custom')
+			return <pre><code className="parameter">{data}</code></pre>;
 
-	if (name == 'id')
-		return <LinkTo to={[resource._private.name, 'show', resource.id]} className="parameter">{data}</LinkTo>;
+		if (this.props.name == 'id' && this.props.resource.show) {
+			var ids = this.context.url_params.slice(0);
+			ids.push(this.props.resource.id);
 
-	return <span className="parameter">{data}</span>;
+			return <LinkTo to={[resourcePath(this.props.resource).join('.'), 'show', ids.join(',')]} className="parameter">{data}</LinkTo>;
+		}
+
+		return <span className="parameter">{data}</span>;
+	}
+});
+
+OutputParameter.contextTypes = {
+	url_params: React.PropTypes.array,
 };
+
+export default OutputParameter;

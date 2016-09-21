@@ -1,5 +1,10 @@
 import React from 'react'
+import {resourcePath} from '../utils'
 
 export default function ({resource}) {
-	return <span className="resource-name">{resource.replace(/_/g, ' ')}</span>;
+	return (
+		<span className="resource-name">
+			{resourcePath(resource).map(r => r.replace(/_/g, ' ')).join(' . ')}
+		</span>
+	);
 };
