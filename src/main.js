@@ -7,6 +7,7 @@ import BasePage from './components/base_page'
 import ApiSelector from './components/api_selector'
 import ApiPage from './containers/api_page'
 import Resource from './components/resource'
+import Action from './components/action'
 import Config from './config';
 import {reducer} from './reducers'
 
@@ -18,13 +19,17 @@ ReactDOM.render(
 			{
 				Config.api_url ?
 				<Route path="/" component={ApiPage}>
-					<Route path=":resource" component={Resource} />
+					<Route path=":resource" component={Resource}>
+						<Route path=":action" component={Action} />
+					</Route>
 				</Route>
 				:
 				<Route path="/" component={BasePage}>
 					<IndexRoute component={ApiSelector} />
 					<Route path="api/:url" component={ApiPage}>
-						<Route path=":resource" component={Resource} />
+						<Route path=":resource" component={Resource}>
+							<Route path=":action" component={Action} />
+						</Route>
 					</Route>
 				</Route>
 			}
