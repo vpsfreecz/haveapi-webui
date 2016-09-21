@@ -7,7 +7,9 @@ export default React.createClass({
 
 		return (
 			<ul>
-				{this.props.resource.actions.map(action => (
+				{this.props.resource.actions.filter(action => (
+					!this.props.resource[action].description.url.contains(':'+name+'_id')
+				)).map(action => (
 					<li key={action}><LinkTo to={[name, action]}>{action}</LinkTo></li>
 				))}
 			</ul>
