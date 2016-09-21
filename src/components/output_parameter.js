@@ -1,4 +1,5 @@
 import React from 'react'
+import {LinkTo} from '../utils'
 
 function formatParameter (name, resource, desc) {
 	switch (desc.type) {
@@ -34,6 +35,9 @@ export default function ({name, resource, desc}) {
 
 	if (desc.type == 'Custom')
 		return <pre><code className="parameter">{data}</code></pre>;
+
+	if (name == 'id')
+		return <LinkTo to={[resource._private.name, 'show', resource.id]} className="parameter">{data}</LinkTo>;
 
 	return <span className="parameter">{data}</span>;
 };
