@@ -42,10 +42,11 @@ var OutputParameter = React.createClass({
 			return <pre><code className="parameter">{data}</code></pre>;
 
 		if (this.props.name == 'id' && this.props.resource.show) {
-			var ids = this.context.url_params.slice(0);
+			var path = resourcePath(this.props.resource);
+			var ids = this.context.url_params.slice(0, path.length-1);
 			ids.push(this.props.resource.id);
 
-			return <LinkTo to={[resourcePath(this.props.resource).join('.'), 'show', ids.join(',')]} className="parameter">{data}</LinkTo>;
+			return <LinkTo to={[path.join('.'), 'show', ids.join(',')]} className="parameter">{data}</LinkTo>;
 		}
 
 		return <span className="parameter">{data}</span>;
