@@ -6,7 +6,7 @@ import {resolveResource} from '../utils'
 var Resource = React.createClass({
 	getChildContext: function () {
 		return {
-			url_params: (this.props.params.ids && this.props.params.ids.split('.')) || [],
+			url_params: (this.props.params.ids && this.props.params.ids.split(',')) || [],
 		};
 	},
 
