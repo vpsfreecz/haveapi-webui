@@ -4,6 +4,7 @@ import {LinkTo, resourcePath} from '../utils'
 var ResourceActions = React.createClass({
 	render: function () {
 		var name = this.props.resource._private.name;
+		var path = resourcePath(this.props.resource);
 
 		return (
 			<ul>
@@ -11,7 +12,18 @@ var ResourceActions = React.createClass({
 					!this.props.resource[action].description.url.contains(':'+name+'_id')
 				)).map(action => (
 					<li key={action}>
-						<LinkTo to={[resourcePath(this.props.resource).join('.'), action, this.context.url_params.join(',')]}>{action}</LinkTo>
+						{/*
+							Since we're linking to a resource action, not an instance action, we
+							remove the id of the last resource, i.e. use all ids, except the last.
+						*/}
+						<LinkTo
+							to={[
+								path.join('.'),
+								action,
+								this.context.url_params.slice(0, path.length-1).join(',')
+							]}>
+							{action}
+						</LinkTo>
 					</li>
 				))}
 			</ul>
