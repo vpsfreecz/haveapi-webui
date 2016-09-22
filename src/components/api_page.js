@@ -3,6 +3,7 @@ import HaveAPI from '../haveapi-client'
 import {Row, Col, Navbar} from 'react-bootstrap'
 import LoginForm from '../containers/login_form'
 import ResourceName from './resource_name'
+import Authentication from '../authentication'
 import Config from '../config'
 import {LinkTo} from '../utils'
 
@@ -15,32 +16,33 @@ var ApiPage = React.createClass({
 	},
 
 	getChildContext: function () {
-		return {api: this.api};
+		return {
+			api: this.api,
+			auth: this.auth,
+		};
 	},
 
 	componentDidMount: function () {
 		this.api = new HaveAPI.Client(Config.api_url || this.props.params.url);
+		this.auth = new Authentication(this.api, this.context.store);
 		var that = this;
-		var token = sessionStorage.getItem('auth_token');
 
-		if (token) {
-			this.api.authenticate('token', {
-				token: token,
-			}, function () {
+		this.auth.load(function (c, status) {
+			if (status) {
 				that.setState({
 					resources: that.api.resources,
-					authenticated: true, // FIXME: token might be invalid
+					authenticated: true,
 				});
-			});
+				return;
+			}
 
-		} else {
-			this.api.setup(function () {
+			that.api.setup(function () {
 				that.setState({
 					resources: that.unauthenticatedResources(that.api.resources),
 					authenticated: false,
 				});
 			});
-		}
+		});
 	},
 
 	componentWillUpdate: function (nextProps, nextState) {
@@ -49,8 +51,9 @@ var ApiPage = React.createClass({
 		if (nextProps.authenticated != this.state.authenticated) {
 			console.log('new resources', this.api.resources);
 			console.log(this.api);
+
 			this.setState({
-				resources: this.api.resources,
+				resources: nextProps.authenticated ? this.api.resources : this.unauthenticatedResources(this.api.resources),
 				authenticated: nextProps.authenticated,
 			});
 		}
@@ -117,6 +120,11 @@ var ApiPage = React.createClass({
 
 ApiPage.childContextTypes = {
 	api: React.PropTypes.object,
+	auth: React.PropTypes.object,
+};
+
+ApiPage.contextTypes = {
+	store: React.PropTypes.object,
 };
 
 export default ApiPage;

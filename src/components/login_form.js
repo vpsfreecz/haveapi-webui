@@ -20,32 +20,23 @@ var LoginForm = React.createClass({
 	login: function (e) {
 		e.preventDefault();
 
-		console.log('login', this.state);
-
 		var that = this;
 
-		this.context.api.authenticate('token', {
+		this.context.auth.authenticate(this.state.method, {
 			username: this.state.username,
 			password: this.state.password,
 		}, function (c, status) {
-			console.log('result: ', c, status);
-			console.log(c.authProvider.token);
-
-			if (status && c.authProvider.token) {
-				sessionStorage.setItem('auth_token', c.authProvider.token);
-				that.props.login();
-			}
+			// TODO
+			// Show error when failed
 		});
 	},
 
 	logout: function (e) {
 		var that = this;
 
-		this.context.api.logout(function (c, status) {
-			if (status) {
-				sessionStorage.removeItem('auth_token');
-				that.props.logout();
-			}
+		this.context.auth.logout(function (c, status) {
+			// TODO
+			// Show error when failed
 		});
 	},
 
@@ -83,6 +74,7 @@ var LoginForm = React.createClass({
 
 LoginForm.contextTypes = {
 	api: React.PropTypes.object,
+	auth: React.PropTypes.object,
 };
 
 export default LoginForm;

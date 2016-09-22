@@ -1,7 +1,7 @@
 export function reducer (state, action) {
 	if (state === undefined) {
 		return {
-			authenticated: sessionStorage.getItem('auth_token') ? true : false,
+			authenticated: false,
 		};
 	}
 
