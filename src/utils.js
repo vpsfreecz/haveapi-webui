@@ -45,6 +45,10 @@ export function resourcePath (resource) {
 	return path.reverse();
 }
 
+export function capitalize (str) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 var LinkTo = React.createClass({
 	render: function () {
 		var link;
