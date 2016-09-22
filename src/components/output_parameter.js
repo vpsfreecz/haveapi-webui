@@ -30,6 +30,15 @@ function formatParameter (name, resource, desc) {
 	}
 }
 
+function findAssociation (api, path) {
+	var name = path.shift();
+
+	if (!path.length)
+		return api[name];
+
+	return findAssociation(api[name], path);
+}
+
 var OutputParameter = React.createClass({
 	render: function () {
 		var data = formatParameter(
@@ -49,11 +58,31 @@ var OutputParameter = React.createClass({
 			return <LinkTo to={[path.join('.'), 'show', ids.join(',')]} className="parameter">{data}</LinkTo>;
 		}
 
+		if (this.props.desc.type == 'Resource') {
+			var assoc = findAssociation(this.context.api, this.props.desc.resource.slice(0));
+			var metaNs = this.context.api.apiSettings.meta.namespace;
+
+			if (assoc.show) {
+				return (
+					<LinkTo
+						to={[
+							this.props.desc.resource.join('.'),
+							'show',
+							this.props.resource._private.attributes[this.props.name][metaNs].url_params.join(',')
+						]}
+						className="association">
+						{data}
+					</LinkTo>
+				);
+			}
+		}
+
 		return <span className="parameter">{data}</span>;
 	}
 });
 
 OutputParameter.contextTypes = {
+	api: React.PropTypes.object,
 	url_params: React.PropTypes.array,
 };
 
