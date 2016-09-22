@@ -61,14 +61,15 @@ var OutputParameter = React.createClass({
 		if (this.props.desc.type == 'Resource') {
 			var assoc = findAssociation(this.context.api, this.props.desc.resource.slice(0));
 			var metaNs = this.context.api.apiSettings.meta.namespace;
+			var attr = this.props.resource._private.attributes[this.props.name];
 
-			if (assoc.show) {
+			if (assoc.show && attr) {
 				return (
 					<LinkTo
 						to={[
 							this.props.desc.resource.join('.'),
 							'show',
-							this.props.resource._private.attributes[this.props.name][metaNs].url_params.join(',')
+							attr[metaNs].url_params.join(',')
 						]}
 						className="association">
 						{data}
