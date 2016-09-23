@@ -11,6 +11,7 @@ export default class Authentication {
 	authenticate (method, opts, callback) {
 		var that = this;
 
+		this.username = opts.username;
 		this.method = method;
 		this.handler = this.getHandler(method);
 
@@ -42,6 +43,7 @@ export default class Authentication {
 
 	save () {
 		sessionStorage.setItem('authentication', JSON.stringify({
+			username: this.username,
 			method: this.method,
 			opts: this.handler.save(),
 		}));
@@ -61,6 +63,9 @@ export default class Authentication {
 		var handler = this.getHandler(data.method);
 		var that = this;
 
+		this.username = data.username;
+		this.method = data.method;
+
 		handler.load(data.opts, function (c, status) {
 			if (status) {
 				that.handler = handler;
@@ -76,7 +81,7 @@ export default class Authentication {
 	}
 
 	loggedIn () {
-		this.store.dispatch({type: 'LOGIN'});
+		this.store.dispatch({type: 'LOGIN', opts: {username: this.username}});
 		this.monitor = new ActivityMonitor();
 		this.monitor.startIdleTimer(this.logout.bind(this), 20*60*1000);
 	}

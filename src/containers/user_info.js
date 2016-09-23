@@ -5,7 +5,10 @@ var mapStateToProps = function (state) {
 	if (state === undefined)
 		state = {};
 
-	return {authenticated: state.authenticated};
+	return {
+		authenticated: state.authenticated,
+		username: state.username,
+	};
 };
 
 module.exports = connect(mapStateToProps)(UserInfo);

@@ -46,7 +46,7 @@ var UserInfo = React.createClass({
 	fetchInfo: function () {
 		if (!this.isConfigured()) {
 			this.setState({
-				name: 'unknown',
+				name: this.props.username,
 			});
 			return;
 		}

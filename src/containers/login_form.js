@@ -14,9 +14,8 @@ var mapDispatchToProps = function (dispatch) {
 	console.log('map dispatch');
 
 	return {
-		login: function () {
-			console.log('wtf is this');
-			dispatch({type: 'LOGIN'});
+		login: function (username) {
+			dispatch({type: 'LOGIN', opts: {username: username}});
 		},
 		logout: function () {
 			dispatch({type: 'LOGOUT'});

@@ -2,6 +2,7 @@ export function reducer (state, action) {
 	if (state === undefined) {
 		return {
 			authenticated: false,
+			username: null,
 		};
 	}
 
@@ -11,6 +12,7 @@ export function reducer (state, action) {
 		case 'LOGIN':
 			return Object.assign({}, state, {
 				authenticated: true,
+				username: action.opts.username,
 			});
 
 		case 'LOGOUT':
