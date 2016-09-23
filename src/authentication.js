@@ -16,8 +16,10 @@ export default class Authentication {
 		this.handler = this.getHandler(method);
 
 		this.handler.authenticate(opts, function (c, status) {
-			that.loggedIn();
-			that.save();
+			if (status) {
+				that.loggedIn();
+				that.save();
+			}
 
 			if (callback)
 				callback(c, status);
