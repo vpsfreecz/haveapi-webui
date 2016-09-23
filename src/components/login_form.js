@@ -28,6 +28,18 @@ var LoginForm = React.createClass({
 		}, function (c, status) {
 			// TODO
 			// Show error when failed
+
+			if (status) {
+				that.setState(Object.assign({}, that.state, {
+					username: '',
+					password: '',
+				}));
+
+			} else {
+				that.setState(Object.assign({}, that.state, {
+					password: '',
+				}));
+			}
 		});
 	},
 
