@@ -24,7 +24,7 @@ var ApiPage = React.createClass({
 	},
 
 	componentDidMount: function () {
-		this.api = new HaveAPI.Client(Config.api_url || this.props.params.url);
+		this.api = new HaveAPI.Client(Config.apiUrl || this.props.params.url);
 		this.auth = new Authentication(this.api, this.context.store);
 		var that = this;
 
@@ -84,7 +84,7 @@ var ApiPage = React.createClass({
 					<Navbar>
 						<Navbar.Header>
 							<Navbar.Brand>
-								<a href="#">{Config.api_url || this.props.params.url}</a>
+								<a href="#">{Config.apiUrl || this.props.params.url}</a>
 							</Navbar.Brand>
 						</Navbar.Header>
 						<Navbar.Collapse>

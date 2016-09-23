@@ -18,7 +18,7 @@ ReactDOM.render(
 	<Provider store={store}>
 		<Router>
 			{
-				Config.api_url ?
+				Config.apiUrl ?
 				<Route path="/" component={ApiPage}>
 					<Route path=":resources" component={Resource}>
 						<Route path="show/:ids" component={Instance} />

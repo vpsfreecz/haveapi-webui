@@ -6,7 +6,7 @@ import Config from '../config'
 export default React.createClass({
 	getInitialState: function () {
 		return {
-			url: Config.default_api_url || '',
+			url: Config.defaultApiUrl || '',
 		};
 	},
 

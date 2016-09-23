@@ -5,7 +5,7 @@ import Config from './config'
 export function linkTo (api, ...args) {
 	var ret = [];
 
-	if (!Config.api_url && api) {
+	if (!Config.apiUrl && api) {
 		ret.push('api');
 		ret.push(encodeURIComponent(api));
 	}
