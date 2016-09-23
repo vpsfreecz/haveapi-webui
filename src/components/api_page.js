@@ -81,7 +81,7 @@ var ApiPage = React.createClass({
 		if (this.api) {
 			return (
 				<div className="api">
-					<Navbar>
+					<Navbar fluid>
 						<Navbar.Header>
 							<Navbar.Brand>
 								<a href="#">{Config.apiUrl || this.props.params.url}</a>
