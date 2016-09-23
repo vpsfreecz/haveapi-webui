@@ -2,6 +2,7 @@ import React from 'react'
 import HaveAPI from '../haveapi-client'
 import {Row, Col, Navbar} from 'react-bootstrap'
 import LoginForm from '../containers/login_form'
+import UserInfo from '../containers/user_info'
 import ResourceName from './resource_name'
 import Authentication from '../authentication'
 import Config from '../config'
@@ -90,6 +91,7 @@ var ApiPage = React.createClass({
 							<Navbar.Form pullRight>
 								<LoginForm />
 							</Navbar.Form>
+							<UserInfo />
 						</Navbar.Collapse>
 					</Navbar>
 
