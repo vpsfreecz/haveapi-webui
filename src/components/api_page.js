@@ -6,6 +6,7 @@ import UserInfo from '../containers/user_info'
 import ResourceName from './resource_name'
 import Authentication from '../authentication'
 import Config from '../config'
+import Package from '../package'
 import {LinkTo} from '../utils'
 
 var ApiPage = React.createClass({
@@ -79,12 +80,14 @@ var ApiPage = React.createClass({
 
 	render: function () {
 		if (this.api) {
+			var apiUrl = Config.apiUrl || this.props.params.url;
+
 			return (
 				<div className="api">
 					<Navbar fluid>
 						<Navbar.Header>
 							<Navbar.Brand>
-								<a href="#">{Config.apiUrl || this.props.params.url}</a>
+								<a href="#">{apiUrl}</a>
 							</Navbar.Brand>
 						</Navbar.Header>
 						<Navbar.Collapse>
@@ -112,6 +115,14 @@ var ApiPage = React.createClass({
 								<div className="resource">
 									{this.props.children}
 								</div>
+							</Col>
+						</Row>
+						<Row>
+							<Col md={12} className="footer">
+								<p>
+									Connected to API server at <a href={apiUrl} target="_blank">{apiUrl}</a>.
+									Powered by HaveAPI WebUI v{Package.version}.
+								</p>
 							</Col>
 						</Row>
 					</Grid>

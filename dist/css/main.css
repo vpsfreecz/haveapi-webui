@@ -5,3 +5,7 @@ ul.resource-list li {
 ul.resource-list li.active {
     font-weight: bold;
 }
+
+.footer {
+    text-align: right;
+}
