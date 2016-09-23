@@ -1,5 +1,6 @@
 import Basic from './authentication/basic'
 import Token from './authentication/token'
+import ActivityMonitor from './activity_monitor'
 
 export default class Authentication {
 	constructor (api, store) {
@@ -29,7 +30,9 @@ export default class Authentication {
 			if (status) {
 				that.api.setup(function (c2, status2) {
 					that.loggedOut();
-					callback(c2, status2);
+
+					if (callback)
+						callback(c2, status2);
 				});
 
 			} else if (callback)
@@ -51,6 +54,10 @@ export default class Authentication {
 			return callback(this.api, false);
 
 		var data = JSON.parse(str);
+
+		if (!data.method)
+			return callback(this.api, false);
+
 		var handler = this.getHandler(data.method);
 		var that = this;
 
@@ -70,11 +77,16 @@ export default class Authentication {
 
 	loggedIn () {
 		this.store.dispatch({type: 'LOGIN'});
+		this.monitor = new ActivityMonitor();
+		this.monitor.startIdleTimer(this.logout.bind(this), 20*60*1000);
 	}
 
 	loggedOut () {
 		this.forget();
 		this.store.dispatch({type: 'LOGOUT'});
+
+		if (this.monitor)
+			this.monitor.stopIdleTimer();
 	}
 
 	getHandler (method) {
