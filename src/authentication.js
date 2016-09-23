@@ -28,7 +28,6 @@ export default class Authentication {
 		this.handler.logout(function (c, status) {
 			if (status) {
 				that.api.setup(function (c2, status2) {
-					console.log('setup after logout', status2, c2.resources);
 					that.loggedOut();
 					callback(c2, status2);
 				});
@@ -84,6 +83,9 @@ export default class Authentication {
 			token: Token,
 		}[method];
 
-		return new klass(this.api);
+		return new klass(this.api, {
+			optsChanged: this.save.bind(this),
+			loggedOut: this.loggedOut.bind(this),
+		});
 	}
 }
