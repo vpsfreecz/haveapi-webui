@@ -6,6 +6,7 @@ import Config from '../config'
 var UserInfo = React.createClass({
 	getInitialState: function () {
 		return {
+			id: null,
 			name: null,
 		};
 	},
@@ -46,6 +47,7 @@ var UserInfo = React.createClass({
 	fetchInfo: function () {
 		if (!this.isConfigured()) {
 			this.setState({
+				id: null,
 				name: this.props.username,
 			});
 			return;
@@ -57,6 +59,7 @@ var UserInfo = React.createClass({
 		resource[Config.currentUser.action].invoke(function (c, user) {
 			if (user.isOk()) {
 				that.setState({
+					id: user.id,
 					name: that.getName(user),
 				});
 			}
@@ -65,11 +68,20 @@ var UserInfo = React.createClass({
 
 	render: function () {
 		if (this.state.name) {
+			var link = null;
+
+			if (this.state.id && this.context.api[Config.currentUser.resource].show) {
+				link = [Config.currentUser.resource, 'show', this.state.id];
+
+			} else if (this.isConfigured()) {
+				link = [Config.currentUser.resource, Config.currentUser.action];
+			}
+
 			return (
 				<Navbar.Text pullRight>
 					Logged as
 					{' '}
-					{this.isConfigured() ? <LinkTo to={[Config.currentUser.resource, Config.currentUser.action]}>{this.state.name}</LinkTo> : this.state.name}
+					{link ? <LinkTo to={link}>{this.state.name}</LinkTo> : this.state.name}
 	      </Navbar.Text>
 			);
 		}
