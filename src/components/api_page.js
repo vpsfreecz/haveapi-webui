@@ -1,6 +1,6 @@
 import React from 'react'
 import HaveAPI from '../haveapi-client'
-import {Row, Col, Navbar} from 'react-bootstrap'
+import {Grid, Row, Col, Navbar} from 'react-bootstrap'
 import LoginForm from '../containers/login_form'
 import UserInfo from '../containers/user_info'
 import ResourceName from './resource_name'
@@ -95,24 +95,26 @@ var ApiPage = React.createClass({
 						</Navbar.Collapse>
 					</Navbar>
 
-					<Row>
-						<Col md={2}>
-							<ul className="resource-list">
-								{this.state.resources.map(r => (
-									<li key={r} className={r == this.props.params.resource ? 'active' : ''}>
-										<LinkTo to={r}>
-											<ResourceName resource={this.api[r]} />
-										</LinkTo>
-									</li>
-								))}
-							</ul>
-						</Col>
-						<Col md={10}>
-							<div className="resource">
-								{this.props.children}
-							</div>
-						</Col>
-					</Row>
+					<Grid fluid>
+						<Row>
+							<Col md={2}>
+								<ul className="resource-list">
+									{this.state.resources.map(r => (
+										<li key={r} className={r == this.props.params.resource ? 'active' : ''}>
+											<LinkTo to={r}>
+												<ResourceName resource={this.api[r]} />
+											</LinkTo>
+										</li>
+									))}
+								</ul>
+							</Col>
+							<Col md={10}>
+								<div className="resource">
+									{this.props.children}
+								</div>
+							</Col>
+						</Row>
+					</Grid>
 				</div>
 			);
 
