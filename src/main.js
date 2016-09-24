@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, IndexRoute, Route} from 'react-router'
+import {Router, IndexRoute, Route, hashHistory} from 'react-router'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import BasePage from './components/base_page'
@@ -16,7 +16,7 @@ var store = createStore(reducer);
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router>
+		<Router history={hashHistory}>
 			{
 				Config.apiUrl ?
 				<Route path="/" component={ApiPage}>
