@@ -117,15 +117,13 @@ var ApiPage = React.createClass({
 								</div>
 							</Col>
 						</Row>
-						<Row>
-							<Col md={12} className="footer">
-								<p>
-									Connected to API server at <a href={apiUrl} target="_blank">{apiUrl}</a>.
-									Powered by HaveAPI WebUI v{Package.version}.
-								</p>
-							</Col>
-						</Row>
 					</Grid>
+					<footer>
+							<p>
+								Connected to API server at <a href={apiUrl} target="_blank">{apiUrl}</a>.
+								Powered by HaveAPI WebUI v{Package.version}.
+							</p>
+					</footer>
 				</div>
 			);
 
