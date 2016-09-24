@@ -9,7 +9,7 @@ var ResourceActions = React.createClass({
 		return (
 			<ul>
 				{this.props.resource.actions.filter(action => (
-					!this.props.resource[action].description.url.contains(':'+name+'_id')
+					this.props.resource[action].description.url.indexOf(':'+name+'_id') === -1
 				)).map(action => (
 					<li key={action}>
 						{/*

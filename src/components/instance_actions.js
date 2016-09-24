@@ -9,7 +9,7 @@ var InstanceActions = React.createClass({
 		return (
 			<ul>
 				{this.props.resource.actions.filter(action => (
-					action != 'show' && this.props.resource[action].description.url.contains(':'+name+'_id')
+					action != 'show' && this.props.resource[action].description.url.indexOf(':'+name+'_id') >= 0
 				)).map(action => (
 					<li key={action}><LinkTo to={[path.join('.'), action, this.context.url_params.join(',')]}>{action}</LinkTo></li>
 				))}
