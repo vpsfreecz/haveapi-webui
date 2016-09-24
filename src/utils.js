@@ -45,6 +45,15 @@ export function resourcePath (resource) {
 	return path.reverse();
 }
 
+export function findAssociation (api, path) {
+	var name = path.shift();
+
+	if (!path.length)
+		return api[name];
+
+	return findAssociation(api[name], path);
+}
+
 export function capitalize (str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }

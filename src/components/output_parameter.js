@@ -1,5 +1,5 @@
 import React from 'react'
-import {LinkTo, resourcePath} from '../utils'
+import {LinkTo, resourcePath, findAssociation} from '../utils'
 
 function formatParameter (name, resource, desc) {
 	switch (desc.type) {
@@ -28,15 +28,6 @@ function formatParameter (name, resource, desc) {
 		default:
 			return resource[name];
 	}
-}
-
-function findAssociation (api, path) {
-	var name = path.shift();
-
-	if (!path.length)
-		return api[name];
-
-	return findAssociation(api[name], path);
 }
 
 var OutputParameter = React.createClass({

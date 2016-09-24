@@ -1,10 +1,48 @@
 import React from 'react'
 import {Col, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap'
+import {findAssociation} from '../../utils'
 
-export default React.createClass({
+var InputParameter = React.createClass({
 	getInitialState: function () {
 		return {
 			value: null,
+		}
+	},
+
+	componentDidMount: function () {
+		if (this.props.desc.type != 'Resource')
+			return;
+
+		this.fetchChoices(this.props);
+	},
+
+	componentWillReceiveProps: function (nextProps) {
+		if (this.props.desc.type != 'Resource')
+			return;
+
+		this.fetchChoices(nextProps);
+	},
+
+	fetchChoices: function (props) {
+		var res = findAssociation(this.context.api, props.desc.resource.slice(0));
+		var that = this;
+
+		if (res.index) {
+			res.index(function (c, list) {
+				var choices = [];
+
+				list.each(function (obj) {
+					choices.push({
+						id: obj[ props.desc.value_id ],
+						label: obj[ props.desc.value_label ],
+					});
+				});
+
+				that.setState(Object.assign({}, this.state, {choices: choices}));
+			});
+
+		} else {
+			this.setState(Object.assign({}, this.state, {choices: null}));
 		}
 	},
 
@@ -28,12 +66,32 @@ export default React.createClass({
 				return <FormControl componentClass="textarea" placeholder={def} value={val} onChange={this.handleChange} />;
 
 			case 'Resource':
-				return <FormControl type="number" placeholder={def} value={val} onChange={this.handleChange} />;
-				return (
-					<FormControl componentClass="select">
-						<option>{/* TODO */}</option>
-					</FormControl>
-				);
+				if (this.state.choices) {
+					return (
+						<FormControl componentClass="select">
+							<option>---</option>
+							{this.state.choices.map(v => (
+								<option key={v.id} value={v.id}>{v.label}</option>
+							))}
+						</FormControl>
+					);
+
+				} else if (this.state.choices === null) {
+					return (
+						<FormControl
+							type="number"
+							placeholder={def}
+							value={val}
+							onChange={this.handleChange} />
+					);
+
+				} else {
+					return (
+						<FormControl componentClass="select">
+							<option disabled>Fetching...</option>
+						</FormControl>
+					);
+				}
 
 			default:
 				return <FormControl type="text" placeholder={def} value={val} onChange={this.handleChange} />;
@@ -62,3 +120,9 @@ export default React.createClass({
 		);
 	}
 });
+
+InputParameter.contextTypes = {
+	api: React.PropTypes.object,
+};
+
+export default InputParameter;
