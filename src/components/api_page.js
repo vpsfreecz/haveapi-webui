@@ -121,7 +121,7 @@ var ApiPage = React.createClass({
 					<footer>
 							<p>
 								Connected to API server at <a href={apiUrl} target="_blank">{apiUrl}</a>.
-								Powered by HaveAPI WebUI v{Package.version}.
+								Powered by <a href={Package.repository}>HaveAPI WebUI</a> v{Package.version}.
 							</p>
 					</footer>
 				</div>
