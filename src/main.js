@@ -13,6 +13,12 @@ import Config from './config';
 import {reducer} from './reducers'
 
 var store = createStore(reducer);
+var routes = (
+	<Route path=":resources" component={Resource}>
+		<Route path="show/:ids" component={Instance} />
+		<Route path=":action(/:ids)" component={Action} />
+	</Route>
+);
 
 ReactDOM.render(
 	<Provider store={store}>
@@ -20,19 +26,13 @@ ReactDOM.render(
 			{
 				Config.apiUrl ?
 				<Route path="/" component={ApiPage}>
-					<Route path=":resources" component={Resource}>
-						<Route path="show/:ids" component={Instance} />
-						<Route path=":action(/:ids)" component={Action} />
-					</Route>
+					{routes}
 				</Route>
 				:
 				<Route path="/" component={BasePage}>
 					<IndexRoute component={ApiSelector} />
 					<Route path="api/:url" component={ApiPage}>
-						<Route path=":resources" component={Resource}>
-							<Route path="show/:ids" component={Instance} />
-							<Route path=":action(/:ids)" component={Action} />
-						</Route>
+						{routes}
 					</Route>
 				</Route>
 			}
