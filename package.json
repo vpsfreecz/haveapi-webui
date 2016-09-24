@@ -7,6 +7,10 @@
     "name": "Jakub Skokan",
     "email": "jakub.skokan@vpsfree.cz"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vpsfreecz/haveapi-webui"
+  },
   "dependencies": {
     "haveapi-client": "^0.5.2",
     "react": "^15.3.1",
