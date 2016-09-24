@@ -16,7 +16,9 @@ export default React.createClass({
 		this.setState(Object.assign({}, this.state, state));
 	},
 
-	submit: function () {
+	submit: function (e) {
+		e.preventDefault();
+
 		console.log('submited with', this.state);
 
 		var params = {};
