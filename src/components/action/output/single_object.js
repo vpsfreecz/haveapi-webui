@@ -6,7 +6,7 @@ export default React.createClass({
 		var output_params = this.props.action.description.output.parameters;
 
 		return (
-			<dl>
+			<dl className="single-object dl-horizontal">
 				{Object.keys(output_params).map(p => (
 					<div key={p}>
 						<dt>{output_params[p].label || p}:</dt>
