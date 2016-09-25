@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup, Button, Glyphicon} from 'react-bootstrap'
+import {Col, FormGroup, ControlLabel, FormControl, Checkbox, HelpBlock, InputGroup, Button, Glyphicon} from 'react-bootstrap'
 import {findAssociation} from '../../utils'
 import SelectModal from './input/select_modal'
 
@@ -7,7 +7,7 @@ var InputParameter = React.createClass({
 	getInitialState: function () {
 		return {
 			value: null,
-		}
+		};
 	},
 
 	componentDidMount: function () {
@@ -90,6 +90,9 @@ var InputParameter = React.createClass({
 			case 'Integer':
 			case 'Float':
 				return <FormControl type="number" placeholder={def} value={val} onChange={this.handleChange} />;
+
+			case 'Boolean':
+				return <Checkbox checked={val ? true : false} onChange={this.handleCheckbox} />;
 
 			case 'Text':
 			case 'Custom':
@@ -176,6 +179,14 @@ var InputParameter = React.createClass({
 		console.log('param change', event.target.value);
 
 		var v = event.target.value;
+		this.setState({value: v});
+		this.props.onChange(v);
+	},
+
+	handleCheckbox: function (event) {
+		console.log('param check', event.target.checked);
+
+		var v = event.target.checked;
 		this.setState({value: v});
 		this.props.onChange(v);
 	},
