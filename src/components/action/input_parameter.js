@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap'
+import {Col, FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup, Button, Glyphicon} from 'react-bootstrap'
 import {findAssociation} from '../../utils'
 
 var InputParameter = React.createClass({
@@ -46,6 +46,14 @@ var InputParameter = React.createClass({
 		}
 	},
 
+	toggleField: function (e) {
+		e.preventDefault();
+
+		this.setState(Object.assign({}, this.state, {
+			raw: !this.state.raw,
+		}));
+	},
+
 	fieldForParam: function () {
 		var def = this.props.desc.default || '';
 		var val = this.state.value || '';
@@ -66,14 +74,38 @@ var InputParameter = React.createClass({
 				return <FormControl componentClass="textarea" placeholder={def} value={val} onChange={this.handleChange} />;
 
 			case 'Resource':
-				if (this.state.choices) {
+				if (this.state.raw) {
 					return (
-						<FormControl componentClass="select">
-							<option>---</option>
-							{this.state.choices.map(v => (
-								<option key={v.id} value={v.id}>{v.label}</option>
-							))}
-						</FormControl>
+						<InputGroup>
+							<FormControl
+								type="number"
+								placeholder={def}
+								value={val}
+								onChange={this.handleChange} />
+
+							<InputGroup.Button>
+								<Button onClick={this.toggleField}><Glyphicon glyph="list" /></Button>
+							</InputGroup.Button>
+						</InputGroup>
+					);
+
+				} else if (this.state.choices) {
+					return (
+						<InputGroup>
+							<FormControl
+								componentClass="select"
+								value={val}
+								onChange={this.handleChange}>
+								<option>---</option>
+								{this.state.choices.map(v => (
+									<option key={v.id} value={v.id}>{v.label}</option>
+								))}
+							</FormControl>
+
+							<InputGroup.Button>
+								<Button onClick={this.toggleField}><Glyphicon glyph="edit" /></Button>
+							</InputGroup.Button>
+						</InputGroup>
 					);
 
 				} else if (this.state.choices === null) {
@@ -87,9 +119,15 @@ var InputParameter = React.createClass({
 
 				} else {
 					return (
-						<FormControl componentClass="select">
-							<option disabled>Fetching...</option>
-						</FormControl>
+						<InputGroup>
+							<FormControl componentClass="select">
+								<option disabled>Fetching...</option>
+							</FormControl>
+
+							<InputGroup.Button>
+								<Button onClick={this.toggleField}><Glyphicon glyph="edit" /></Button>
+							</InputGroup.Button>
+						</InputGroup>
 					);
 				}
 
