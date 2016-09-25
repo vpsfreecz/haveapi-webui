@@ -34,7 +34,7 @@ export function resolveAction (api, resources, action, ids) {
 }
 
 export function resourcePath (resource) {
-	var path = [resource._private.name];
+	var path = [resource.getName()];
 	var tmp = resource;
 
 	while (tmp._private.parent) {

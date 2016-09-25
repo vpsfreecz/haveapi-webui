@@ -7,9 +7,9 @@ export default React.createClass({
 		return (
 			<ul>
 				{this.props.resource.resources.map(r => (
-					<li key={r}>
-						<LinkTo to={[resourcePath(this.props.resource[r]).join('.'), 'index', this.props.ids]}>
-							<ResourceName resource={this.props.resource[r]} />
+					<li key={r.getName()}>
+						<LinkTo to={[resourcePath(r).join('.'), 'index', this.props.ids]}>
+							<ResourceName resource={r} />
 						</LinkTo>
 					</li>
 				))}

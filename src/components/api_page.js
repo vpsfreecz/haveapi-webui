@@ -32,7 +32,7 @@ var ApiPage = React.createClass({
 		this.auth.load(function (c, status) {
 			if (status) {
 				that.setState({
-					resources: that.api.resources,
+					resources: that.api.resources.map(r => r.getName()),
 					authenticated: true,
 				});
 				return;
@@ -40,7 +40,7 @@ var ApiPage = React.createClass({
 
 			that.api.setup(function () {
 				that.setState({
-					resources: that.unauthenticatedResources(that.api.resources),
+					resources: that.unauthenticatedResources(that.api.resources).map(r => r.getName()),
 					authenticated: false,
 				});
 			});
@@ -51,11 +51,8 @@ var ApiPage = React.createClass({
 		console.log('api page will update', nextProps.authenticated, this.state.authenticated);
 
 		if (nextProps.authenticated != this.state.authenticated) {
-			console.log('new resources', this.api.resources);
-			console.log(this.api);
-
 			this.setState({
-				resources: nextProps.authenticated ? this.api.resources : this.unauthenticatedResources(this.api.resources),
+				resources: (nextProps.authenticated ? this.api.resources : this.unauthenticatedResources(this.api.resources)).map(r => r.getName()),
 				authenticated: nextProps.authenticated,
 			});
 		}
@@ -66,9 +63,8 @@ var ApiPage = React.createClass({
 		var that = this;
 
 		resources.forEach(function (r) {
-			var rObj = that.api[r];
-			var unauth = rObj.actions.find(function (a) {
-				return !rObj[a].description.auth;
+			var unauth = r.actions.find(function (a) {
+				return !r[a].description.auth;
 			});
 
 			if (unauth)
