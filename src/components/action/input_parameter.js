@@ -137,7 +137,7 @@ var InputParameter = React.createClass({
 								componentClass="select"
 								value={val}
 								onChange={this.handleChange}>
-								<option>---</option>
+								<option value="">---</option>
 								{this.state.choices.map(v => (
 									<option key={v.id} value={v.id}>{v.label}</option>
 								))}
