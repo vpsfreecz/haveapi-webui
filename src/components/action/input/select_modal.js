@@ -37,8 +37,14 @@ var SelectModal = React.createClass({
 		var action = this.getAction();
 
 		return (
-			<Modal show={this.props.show} bsSize="large" className="select-modal">
-				<Modal.Header>Select {this.props.desc.resource.join('.')}</Modal.Header>
+			<Modal
+				show={this.props.show}
+				bsSize="large"
+				className="select-modal"
+				onHide={e => this.props.onClose()}>
+				<Modal.Header closeButton>
+					Select {this.props.desc.resource.join('.')}
+				</Modal.Header>
 				<Modal.Body>
 					<Input action={action} onSubmit={this.execute} />
 					<Output
