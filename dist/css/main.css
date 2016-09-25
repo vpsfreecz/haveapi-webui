@@ -6,6 +6,10 @@ ul.resource-list li.active {
     font-weight: bold;
 }
 
+.select-modal .modal-body {
+    overflow: auto;
+}
+
 footer {
     width: 100%;
     height: 40px;
