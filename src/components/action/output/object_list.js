@@ -33,7 +33,9 @@ export default React.createClass({
 						<tr key={r.id || ('object-' + i++)}>
 							{this.props.objectSelector && (
 								<td>
-									<Button onClick={e => (this.props.objectSelector(r))}>
+									<Button
+										onClick={e => (this.props.objectSelector(r))}
+										title="Select this object">
 										<Glyphicon glyph="copy" />
 									</Button>
 								</td>
