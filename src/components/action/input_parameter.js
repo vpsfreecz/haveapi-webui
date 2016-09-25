@@ -76,6 +76,15 @@ var InputParameter = React.createClass({
 		this.setState(Object.assign({}, this.state, newState));
 	},
 
+	getSelectModal: function () {
+		return (
+			<SelectModal
+				show={this.state.showModal}
+				desc={this.props.desc}
+				onClose={this.modalClosed} />
+		);
+	},
+
 	fieldForParam: function () {
 		var def = this.props.desc.default || '';
 		var val = this.state.value || '';
@@ -116,7 +125,7 @@ var InputParameter = React.createClass({
 									<Glyphicon glyph="folder-open" />
 								</Button>
 							</InputGroup.Button>
-							<SelectModal show={this.state.showModal} desc={this.props.desc} onClose={this.modalClosed} />
+							{this.getSelectModal()}
 						</InputGroup>
 					);
 
@@ -141,7 +150,7 @@ var InputParameter = React.createClass({
 									<Glyphicon glyph="folder-open" />
 								</Button>
 							</InputGroup.Button>
-							<SelectModal show={this.state.showModal} desc={this.props.desc} onClose={this.modalClosed} />
+							{this.getSelectModal()}
 						</InputGroup>
 					);
 
