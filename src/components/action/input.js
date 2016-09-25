@@ -4,7 +4,17 @@ import InputParameter from './input_parameter'
 
 export default React.createClass({
 	getInitialState: function () {
-		return {};
+		return this.props.initialData || {};
+	},
+
+	componentDidMount: function () {
+		if (this.props.initialData)
+			this.setState(this.props.initialData);
+	},
+
+	componentWillReceiveProps: function (nextProps) {
+		if (nextProps.initialData)
+			this.setState(nextProps.initialData);
 	},
 
 	handleChange: function (param, value) {
@@ -24,13 +34,15 @@ export default React.createClass({
 		var params = {};
 
 		for (var p in this.state) {
+			var v = this.state[p];
+
 			if (!this.state.hasOwnProperty(p))
 				continue;
 
-			if (this.state[p] === '' || this.state[p] === null || this.state[p] === undefined)
+			if (v === '' || v === null || v === undefined)
 				continue;
 
-			params[p] = this.state[p];
+			params[p] = v;
 		}
 
 		console.log('filtered to', params);
@@ -48,6 +60,7 @@ export default React.createClass({
 						key={p}
 						name={p}
 						desc={params[p]}
+						initialValue={this.state[p] === undefined ? '' : this.state[p]}
 						onChange={this.handleChange.bind(this, p)} />
 				))}
 				<Col sm={10} smOffset={2}>

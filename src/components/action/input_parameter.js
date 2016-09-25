@@ -6,7 +6,7 @@ import SelectModal from './input/select_modal'
 var InputParameter = React.createClass({
 	getInitialState: function () {
 		return {
-			value: null,
+			value: this.props.initialValue,
 		};
 	},
 
@@ -21,6 +21,7 @@ var InputParameter = React.createClass({
 		if (this.props.desc.type != 'Resource')
 			return;
 
+		this.setState({value: nextProps.initialValue});
 		this.fetchChoices(nextProps);
 	},
 
@@ -102,6 +103,7 @@ var InputParameter = React.createClass({
 				return <FormControl type="number" placeholder={def} value={val} onChange={this.handleChange} />;
 
 			case 'Boolean':
+				console.log('ffp', this.props.name, this.state, val);
 				return <Checkbox checked={val ? true : false} onChange={this.handleCheckbox} />;
 
 			case 'Text':
