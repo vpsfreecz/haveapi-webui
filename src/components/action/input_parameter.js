@@ -1,6 +1,7 @@
 import React from 'react'
 import {Col, FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup, Button, Glyphicon} from 'react-bootstrap'
 import {findAssociation} from '../../utils'
+import SelectModal from './input/select_modal'
 
 var InputParameter = React.createClass({
 	getInitialState: function () {
@@ -54,6 +55,27 @@ var InputParameter = React.createClass({
 		}));
 	},
 
+	toggleModal: function () {
+		this.setState(Object.assign({}, this.state, {
+			showModal: !this.state.showModal,
+		}));
+	},
+
+	modalClosed: function (obj) {
+		if (!obj || !obj.id)
+			return this.toggleModal();
+
+		var newState = {
+			showModal: false,
+			value: obj.id,
+		};
+
+		if (!this.state.choices || !this.state.choices.find(v => (v.id == obj.id)))
+			newState[raw] = true;
+
+		this.setState(Object.assign({}, this.state, newState));
+	},
+
 	fieldForParam: function () {
 		var def = this.props.desc.default || '';
 		var val = this.state.value || '';
@@ -84,8 +106,14 @@ var InputParameter = React.createClass({
 								onChange={this.handleChange} />
 
 							<InputGroup.Button>
-								<Button onClick={this.toggleField}><Glyphicon glyph="list" /></Button>
+								<Button onClick={this.toggleField} title="Show choices">
+									<Glyphicon glyph="list" />
+								</Button>
+								<Button onClick={this.toggleModal} title="Find from list">
+									<Glyphicon glyph="folder-open" />
+								</Button>
 							</InputGroup.Button>
+							<SelectModal show={this.state.showModal} desc={this.props.desc} onClose={this.modalClosed} />
 						</InputGroup>
 					);
 
@@ -103,8 +131,14 @@ var InputParameter = React.createClass({
 							</FormControl>
 
 							<InputGroup.Button>
-								<Button onClick={this.toggleField}><Glyphicon glyph="edit" /></Button>
+								<Button onClick={this.toggleField} title="Enter resource ID">
+									<Glyphicon glyph="edit" />
+								</Button>
+								<Button onClick={this.toggleModal} title="Find from list">
+									<Glyphicon glyph="folder-open" />
+								</Button>
 							</InputGroup.Button>
+							<SelectModal show={this.state.showModal} desc={this.props.desc} onClose={this.modalClosed} />
 						</InputGroup>
 					);
 
@@ -125,7 +159,9 @@ var InputParameter = React.createClass({
 							</FormControl>
 
 							<InputGroup.Button>
-								<Button onClick={this.toggleField}><Glyphicon glyph="edit" /></Button>
+								<Button onClick={this.toggleField} title="Enter resource ID">
+									<Glyphicon glyph="edit" />
+								</Button>
 							</InputGroup.Button>
 						</InputGroup>
 					);

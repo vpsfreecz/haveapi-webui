@@ -24,7 +24,7 @@ export default React.createClass({
 
 			case 'hash_list':
 			case 'object_list':
-				return <ObjectList action={this.props.action} response={this.props.response} />
+				return <ObjectList action={this.props.action} response={this.props.response} objectSelector={this.props.objectSelector} />
 		}
 	},
 });

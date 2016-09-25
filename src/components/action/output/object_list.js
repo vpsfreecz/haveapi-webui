@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table, Alert} from 'react-bootstrap'
+import {Table, Alert, Button, Glyphicon} from 'react-bootstrap'
 import OutputParameter from '../../output_parameter'
 
 export default React.createClass({
@@ -20,6 +20,9 @@ export default React.createClass({
 			<Table striped condensed hover className="action-output">
 				<thead>
 					<tr>
+							{this.props.objectSelector && (
+								<td></td>
+							)}
 						{cols.map(c => (
 							<th key={c}>{output_params[c].label || c}</th>
 						))}
@@ -28,6 +31,13 @@ export default React.createClass({
 				<tbody>
 					{this.props.response.items.map(r => (
 						<tr key={r.id || ('object-' + i++)}>
+							{this.props.objectSelector && (
+								<td>
+									<Button onClick={e => (this.props.objectSelector(r))}>
+										<Glyphicon glyph="copy" />
+									</Button>
+								</td>
+							)}
 							{cols.map(c => (
 								<td key={c}>
 									<OutputParameter name={c} resource={r} desc={output_params[c]} />
