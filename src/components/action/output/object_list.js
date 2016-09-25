@@ -1,8 +1,73 @@
 import React from 'react'
-import {Table, Alert, Button, Glyphicon} from 'react-bootstrap'
+import {Table, Alert, ButtonGroup, Button, Glyphicon} from 'react-bootstrap'
 import OutputParameter from '../../output_parameter'
+import {resourcePath, linkTo} from '../../../utils'
 
-export default React.createClass({
+var ObjectList = React.createClass({
+	getActionButtons: function (r) {
+		var ret = [];
+
+		if (this.props.objectSelector) {
+			ret.push(
+				<Button
+					key="select"
+					onClick={e => (this.props.objectSelector(r))}
+					title="Select this object">
+					<Glyphicon glyph="copy" />
+				</Button>
+			);
+			return ret;
+		}
+
+		if (r.actions.indexOf('update') !== -1) {
+			ret.push(
+				<Button
+					bsSize="xs"
+					key="edit"
+					title="Edit"
+					onClick={e => this.updateObject(r)}>
+					<Glyphicon glyph="edit" />
+				</Button>
+			);
+		}
+
+		if (r.actions.indexOf('delete') !== -1) {
+			ret.push(
+				<Button
+					bsSize="xs"
+					key="delete"
+					title="Delete"
+					onClick={e => this.deleteObject(r)}>
+					<Glyphicon glyph="remove" />
+				</Button>
+			);
+		}
+
+		return ret;
+	},
+
+	updateObject: function (r) {
+		var metaNs = this.context.api.apiSettings.meta.namespace;
+
+		this.context.router.push(linkTo(
+			this.context.api,
+			resourcePath(r).join('.'),
+			'update',
+			r._private.response[metaNs].url_params.join(','),
+		));
+	},
+
+	deleteObject: function (r) {
+		var metaNs = this.context.api.apiSettings.meta.namespace;
+
+		this.context.router.push(linkTo(
+			this.context.api,
+			resourcePath(r).join('.'),
+			'delete',
+			r._private.response[metaNs].url_params.join(','),
+		));
+	},
+
 	render: function () {
 		var list = this.props.response;
 
@@ -20,9 +85,7 @@ export default React.createClass({
 			<Table striped condensed hover className="action-output">
 				<thead>
 					<tr>
-							{this.props.objectSelector && (
-								<td></td>
-							)}
+						<th></th>
 						{cols.map(c => (
 							<th key={c}>{output_params[c].label || c}</th>
 						))}
@@ -31,15 +94,11 @@ export default React.createClass({
 				<tbody>
 					{this.props.response.items.map(r => (
 						<tr key={r.id || ('object-' + i++)}>
-							{this.props.objectSelector && (
-								<td>
-									<Button
-										onClick={e => (this.props.objectSelector(r))}
-										title="Select this object">
-										<Glyphicon glyph="copy" />
-									</Button>
-								</td>
-							)}
+							<td>
+								<ButtonGroup>
+									{this.getActionButtons(r)}
+								</ButtonGroup>
+							</td>
 							{cols.map(c => (
 								<td key={c}>
 									<OutputParameter name={c} resource={r} desc={output_params[c]} />
@@ -52,3 +111,10 @@ export default React.createClass({
 		);
 	}
 });
+
+ObjectList.contextTypes = {
+	api: React.PropTypes.object,
+	router: React.PropTypes.object,
+};
+
+export default ObjectList;
