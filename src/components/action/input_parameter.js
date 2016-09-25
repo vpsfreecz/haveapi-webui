@@ -74,6 +74,7 @@ var InputParameter = React.createClass({
 			newState[raw] = true;
 
 		this.setState(Object.assign({}, this.state, newState));
+		this.props.onChange(obj.id);
 	},
 
 	getSelectModal: function () {
