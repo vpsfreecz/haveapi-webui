@@ -1,6 +1,18 @@
 import React from 'react'
 import {LinkTo, resourcePath, findAssociation} from '../utils'
 
+function nl2br (str) {
+	var rx = /(\n|\r\n)/g;
+	var lines = str.split(rx);
+
+	return lines.map(function (line, index) {
+		if (line.match(rx))
+			return React.createElement('br', {key: index});
+
+		return line;
+	});
+}
+
 function formatParameter (name, resource, desc) {
 	switch (desc.type) {
 		case 'Resource':
@@ -24,6 +36,10 @@ function formatParameter (name, resource, desc) {
 
 		case 'Custom':
 			return JSON.stringify(resource[name], null, 2);
+
+		case 'String':
+		case 'Text':
+			return resource[name] && nl2br(resource[name]);
 
 		default:
 			return resource[name];
