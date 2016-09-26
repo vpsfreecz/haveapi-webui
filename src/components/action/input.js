@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Form, Button} from 'react-bootstrap'
+import {Col, Form, FormGroup, Button} from 'react-bootstrap'
 import InputParameter from './input_parameter'
 
 export default React.createClass({
@@ -63,9 +63,11 @@ export default React.createClass({
 						initialValue={this.state[p] === undefined ? '' : this.state[p]}
 						onChange={this.handleChange.bind(this, p)} />
 				))}
-				<Col sm={10} smOffset={2}>
-					<Button type="submit">Execute</Button>
-				</Col>
+				<FormGroup>
+					<Col sm={10} smOffset={2}>
+						<Button type="submit">Execute</Button>
+					</Col>
+				</FormGroup>
 			</Form>
 		);
 	},
