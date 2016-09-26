@@ -1,7 +1,7 @@
 import React from 'react'
-import {Alert} from 'react-bootstrap'
 import SingleObject from './output/single_object'
 import ObjectList from './output/object_list'
+import ActionError from './error'
 
 export default React.createClass({
 	render: function () {
@@ -11,11 +11,7 @@ export default React.createClass({
 		console.log('so show response', this.props.response);
 
 		if (!this.props.response.isOk())
-			return (
-				<Alert bsStyle="warning">
-					<strong>Action failed:</strong> {this.props.response.message}
-				</Alert>
-			);
+			return <ActionError response={this.props.response} />
 
 		switch (this.props.action.layout('output')) {
 			case 'hash':
