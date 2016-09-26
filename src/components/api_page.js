@@ -94,7 +94,7 @@ var ApiPage = React.createClass({
 					<Navbar fluid>
 						<Navbar.Header>
 							<Navbar.Brand>
-								<a href="#">{apiUrl}</a>
+								<LinkTo to={''} className="navbar-brand">{apiUrl}</LinkTo>
 							</Navbar.Brand>
 						</Navbar.Header>
 						{this.context.api._private.versions.length > 1 && (
