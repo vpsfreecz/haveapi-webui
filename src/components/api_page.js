@@ -55,6 +55,9 @@ var ApiPage = React.createClass({
 				resources: (nextProps.authenticated ? this.api.resources : this.unauthenticatedResources(this.api.resources)).map(r => r.getName()),
 				authenticated: nextProps.authenticated,
 			});
+
+			if (!nextProps.authenticated)
+				this.context.router.replace('/');
 		}
 	},
 
@@ -133,6 +136,7 @@ ApiPage.childContextTypes = {
 };
 
 ApiPage.contextTypes = {
+	router: React.PropTypes.object,
 	store: React.PropTypes.object,
 };
 
