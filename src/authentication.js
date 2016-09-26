@@ -2,6 +2,10 @@ import Basic from './authentication/basic'
 import Token from './authentication/token'
 import ActivityMonitor from './activity_monitor'
 
+const supportedAuthMethods = [
+	'token',
+];
+
 export default class Authentication {
 	constructor (api, store) {
 		this.api = api;
@@ -106,5 +110,27 @@ export default class Authentication {
 			optsChanged: this.save.bind(this),
 			loggedOut: this.loggedOut.bind(this),
 		});
+	}
+
+	getAvailableMethods () {
+		var auth = this.api._private.description.authentication;
+		var ret = [];
+
+		for (var name in auth) {
+			if (!auth.hasOwnProperty(name))
+				continue;
+
+			ret.push({
+				name: name,
+				supported: supportedAuthMethods.indexOf(name) >= 0,
+				desc: auth[name],
+			});
+		}
+
+		return ret;
+	}
+
+	getSupportedMethods () {
+		return this.getAvailableMethods().filter(m => m.supported);
 	}
 }

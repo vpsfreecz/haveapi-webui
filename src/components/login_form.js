@@ -3,8 +3,10 @@ import {FormGroup, FormControl, Button} from 'react-bootstrap'
 
 var LoginForm = React.createClass({
 	getInitialState: function () {
+		var methods = this.context.auth.getSupportedMethods();
+
 		return {
-			method: 'token',
+			method: methods.length ? methods[0].name : '',
 			username: '',
 			password: '',
 		};
@@ -53,10 +55,12 @@ var LoginForm = React.createClass({
 	},
 
 	render: function () {
-		if (this.props.authenticated) {
+		if (this.props.authenticated)
 			return <Button className="logout" onClick={this.logout}>Logout</Button>;
 
-		} else return (
+		var methods = this.context.auth.getSupportedMethods();
+
+		return (
 			<form onSubmit={this.login}>
 				<FormGroup>
 					<FormControl
@@ -69,14 +73,17 @@ var LoginForm = React.createClass({
 						placeholder="Password"
 						value={this.state.password}
 						onChange={e => this.handleChange(e, 'password')} />
-					<FormControl
-						componentClass="select"
-						value={this.state.method}
-						onChange={e => this.handleChange(e, 'method')}>
-						{Object.keys(this.context.api._private.description.authentication).map(auth => (
-							<option key={auth}>{auth}</option>
-						))}
-					</FormControl>
+
+					{methods.length > 1 && (
+						<FormControl
+							componentClass="select"
+							value={this.state.method}
+							onChange={e => this.handleChange(e, 'method')}>
+							{methods.map(auth => (
+								<option key={auth.name}>{auth.name}</option>
+							))}
+						</FormControl>
+						)}
 					<Button type="submit">Login</Button>
 				</FormGroup>
 			</form>
