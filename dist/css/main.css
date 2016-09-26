@@ -10,6 +10,12 @@ ul.resource-list li.active {
     overflow: auto;
 }
 
+.resource-actions table th:first-child,
+.instance-actions table th:first-child,
+.subresources table th:first-child {
+    width: 30%;
+}
+
 footer {
     width: 100%;
     height: 40px;

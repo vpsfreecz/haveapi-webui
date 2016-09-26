@@ -27,6 +27,7 @@ var Resource = React.createClass({
 					resources={this.props.params.resources.split('.')}
 					action={this.props.params.action}
 					ids={this.getUrlParams()} />
+				<h1>Resource <ResourceName resource={resource} /></h1>
 				<ResourceActions resource={resource} ids={this.props.params.ids} />
 				{this.props.children}
 			</div>
