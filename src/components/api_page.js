@@ -1,6 +1,6 @@
 import React from 'react'
 import HaveAPI from '../haveapi-client'
-import {Grid, Row, Col, Navbar} from 'react-bootstrap'
+import {Grid, Row, Col, Navbar, Nav, NavDropdown, MenuItem} from 'react-bootstrap'
 import LoginForm from '../containers/login_form'
 import UserInfo from '../containers/user_info'
 import ResourceName from './resource_name'
@@ -12,6 +12,7 @@ import {LinkTo} from '../utils'
 var ApiPage = React.createClass({
 	getInitialState: function () {
 		return {
+			setup: false,
 			resources: [],
 			authenticated: false,
 		};
@@ -19,28 +20,30 @@ var ApiPage = React.createClass({
 
 	getChildContext: function () {
 		return {
-			api: this.api,
 			auth: this.auth,
 		};
 	},
 
 	componentDidMount: function () {
-		this.api = new HaveAPI.Client(Config.apiUrl || this.props.params.url);
-		this.auth = new Authentication(this.api, this.context.store);
+		this.auth = new Authentication(this.context.api, this.context.store);
 		var that = this;
 
 		this.auth.load(function (c, status) {
 			if (status) {
 				that.setState({
-					resources: that.api.resources.map(r => r.getName()),
+					setup: true,
+					resources: that.context.api.resources.map(r => r.getName()),
 					authenticated: true,
 				});
 				return;
 			}
 
-			that.api.setup(function () {
+			that.context.api.setup(function () {
 				that.setState({
-					resources: that.unauthenticatedResources(that.api.resources).map(r => r.getName()),
+					setup: true,
+					resources: that.unauthenticatedResources(
+						that.context.api.resources
+					).map(r => r.getName()),
 					authenticated: false,
 				});
 			});
@@ -52,7 +55,8 @@ var ApiPage = React.createClass({
 
 		if (nextProps.authenticated != this.state.authenticated) {
 			this.setState({
-				resources: (nextProps.authenticated ? this.api.resources : this.unauthenticatedResources(this.api.resources)).map(r => r.getName()),
+				setup: true,
+				resources: (nextProps.authenticated ? this.context.api.resources : this.unauthenticatedResources(this.context.api.resources)).map(r => r.getName()),
 				authenticated: nextProps.authenticated,
 			});
 
@@ -77,8 +81,12 @@ var ApiPage = React.createClass({
 		return ret;
 	},
 
+	setVersion: function (v, event) {
+		this.context.router.push('/'+v);
+	},
+
 	render: function () {
-		if (this.api) {
+		if (this.state.setup) {
 			var apiUrl = Config.apiUrl || this.props.params.url;
 
 			return (
@@ -89,6 +97,20 @@ var ApiPage = React.createClass({
 								<a href="#">{apiUrl}</a>
 							</Navbar.Brand>
 						</Navbar.Header>
+						{this.context.api._private.versions.length > 1 && (
+							<Nav>
+								<NavDropdown
+									title={'v'+this.context.api._private.currentVersion}
+									id="version-dropdown"
+									onSelect={this.setVersion}>
+									{this.context.api._private.versions.filter(
+										v => v != this.context.api._private.currentVersion
+									).map(v => (
+										<MenuItem eventKey={v} key={v}>{v}</MenuItem>
+									))}
+								</NavDropdown>
+							</Nav>
+						)}
 						<Navbar.Collapse>
 							<Navbar.Form pullRight>
 								<LoginForm />
@@ -104,7 +126,7 @@ var ApiPage = React.createClass({
 									{this.state.resources.map(r => (
 										<li key={r} className={r == this.props.params.resource ? 'active' : ''}>
 											<LinkTo to={r}>
-												<ResourceName resource={this.api[r]} />
+												<ResourceName resource={this.context.api[r]} />
 											</LinkTo>
 										</li>
 									))}
@@ -131,13 +153,13 @@ var ApiPage = React.createClass({
 });
 
 ApiPage.childContextTypes = {
-	api: React.PropTypes.object,
 	auth: React.PropTypes.object,
 };
 
 ApiPage.contextTypes = {
 	router: React.PropTypes.object,
 	store: React.PropTypes.object,
+	api: React.PropTypes.object,
 };
 
 export default ApiPage;

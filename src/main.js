@@ -5,6 +5,7 @@ import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import BasePage from './components/base_page'
 import ApiSelector from './components/api_selector'
+import ApiVersion from './components/api_version'
 import ApiPage from './containers/api_page'
 import Resource from './components/resource'
 import Instance from './components/instance'
@@ -15,11 +16,11 @@ import {reducer} from './reducers'
 
 var store = createStore(reducer);
 var routes = (
-	<Route path=":resources" component={Resource}>
-		<Route path="show/:ids" component={Instance} />
-		<Route path="index(/:ids)" component={IndexAction} />
-		<Route path=":action(/:ids)" component={Action} />
-	</Route>
+		<Route path=":resources" component={Resource}>
+			<Route path="show/:ids" component={Instance} />
+			<Route path="index(/:ids)" component={IndexAction} />
+			<Route path=":action(/:ids)" component={Action} />
+		</Route>
 );
 
 ReactDOM.render(
@@ -27,13 +28,13 @@ ReactDOM.render(
 		<Router history={hashHistory}>
 			{
 				Config.apiUrl ?
-				<Route path="/" component={ApiPage}>
+				<Route path="(:version)" component={ApiVersion}>
 					{routes}
 				</Route>
 				:
 				<Route path="/" component={BasePage}>
 					<IndexRoute component={ApiSelector} />
-					<Route path="api/:url" component={ApiPage}>
+					<Route path=":url" component={ApiVersion}>
 						{routes}
 					</Route>
 				</Route>

@@ -7,8 +7,10 @@ export function linkTo (api, ...args) {
 
 	if (!Config.apiUrl && api) {
 		ret.push('api');
-		ret.push(encodeURIComponent(api));
+		ret.push(encodeURIComponent(api._private.url));
 	}
+
+	ret.push(api._private.currentVersion);
 
 	return '/' + ret.concat(args).join('/');
 }
@@ -61,13 +63,12 @@ export function capitalize (str) {
 var LinkTo = React.createClass({
 	render: function () {
 		var link;
-		var url = this.context.api._private.url;
 
 		if (this.props.to instanceof Array)
-			link = linkTo(url, ...this.props.to);
+			link = linkTo(this.context.api, ...this.props.to);
 
 		else
-			link = linkTo(url, this.props.to);
+			link = linkTo(this.context.api, this.props.to);
 
 		return <Link to={link}>{this.props.children}</Link>;
 	}
