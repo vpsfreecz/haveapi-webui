@@ -1,4 +1,5 @@
 import React from 'react'
+import ActionName from './action/name'
 import {LinkTo, resourcePath} from '../utils'
 
 var ResourceActions = React.createClass({
@@ -22,7 +23,7 @@ var ResourceActions = React.createClass({
 								action,
 								this.context.url_params.slice(0, path.length-1).join(',')
 							]}>
-							{action}
+							<ActionName action={action} />
 						</LinkTo>
 					</li>
 				))}

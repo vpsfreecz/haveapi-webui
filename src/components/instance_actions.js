@@ -1,4 +1,5 @@
 import React from 'react'
+import ActionName from './action/name'
 import {LinkTo, resourcePath} from '../utils'
 
 var InstanceActions = React.createClass({
@@ -11,7 +12,11 @@ var InstanceActions = React.createClass({
 				{this.props.resource.actions.filter(action => (
 					action != 'show' && this.props.resource[action].description.url.indexOf(':'+name+'_id') >= 0
 				)).map(action => (
-					<li key={action}><LinkTo to={[path.join('.'), action, this.context.url_params.join(',')]}>{action}</LinkTo></li>
+					<li key={action}>
+						<LinkTo to={[path.join('.'), action, this.context.url_params.join(',')]}>
+							<ActionName action={action} />
+						</LinkTo>
+					</li>
 				))}
 			</ul>
 		);
