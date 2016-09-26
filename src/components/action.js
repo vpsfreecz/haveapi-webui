@@ -1,20 +1,10 @@
 import React from 'react'
 import {LinkTo} from '../utils'
-import Input from './action/input'
-import Output from './action/output'
+import GetAction from './action/get'
+import PostAction from './action/post'
 import {resolveAction} from '../utils'
 
 var Action = React.createClass({
-	getInitialState: function () {
-		return {
-			response: null,
-		};
-	},
-
-	componentWillReceiveProps: function () {
-		this.setState({response: null});
-	},
-
 	getAction: function () {
 		return resolveAction(
 			this.context.api,
@@ -24,25 +14,16 @@ var Action = React.createClass({
 		);
 	},
 
-	execute: function (params) {
-		console.log('call action!');
-		var that = this;
-
-		this.getAction().invoke(params, function (c, reply) {
-			that.setState({response: reply});
-		});
-	},
-
 	render: function () {
 		var action = this.getAction();
 
-		return (
-			<div>
-				<p>Action {this.props.params.action}</p>
-				<Input action={action} onSubmit={this.execute} />
-				<Output action={action} response={this.state.response} />
-			</div>
-		);
+		switch (action.httpMethod()) {
+			case 'GET':
+				return <GetAction action={action} {...this.props} />;
+
+			default:
+				return <PostAction action={action} {...this.props} />;
+		}
 	},
 });
 
