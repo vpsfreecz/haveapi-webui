@@ -29,8 +29,8 @@ var Action = React.createClass({
 		return (
 			<div>
 				<p>Action <ActionName action={this.props.params.action} /></p>
-				<Input action={action} onSubmit={this.execute} />
-				<Output action={action} response={this.state.response} />
+				<Input action={this.props.action} onSubmit={this.execute} />
+				<Output action={this.props.action} response={this.state.response} />
 			</div>
 		);
 	},
