@@ -70,7 +70,7 @@ var LinkTo = React.createClass({
 		else
 			link = linkTo(this.context.api, this.props.to);
 
-		return <Link to={link}>{this.props.children}</Link>;
+		return <Link to={link} className={this.props.className}>{this.props.children}</Link>;
 	}
 });
 
