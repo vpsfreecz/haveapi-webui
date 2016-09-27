@@ -1,6 +1,7 @@
 import React from 'react'
 import {Modal, Button} from 'react-bootstrap'
 import {findAssociation} from '../../../utils'
+import ResourceName from '../../resource/name'
 import Input from '../input'
 import Output from '../output'
 
@@ -43,7 +44,7 @@ var SelectModal = React.createClass({
 				className="select-modal"
 				onHide={e => this.props.onClose()}>
 				<Modal.Header closeButton>
-					Select {this.props.desc.resource.join('.')}
+					Select <ResourceName resource={action.resource} />
 				</Modal.Header>
 				<Modal.Body>
 					<Input action={action} onSubmit={this.execute} />
