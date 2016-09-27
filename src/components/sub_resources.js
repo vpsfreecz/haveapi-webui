@@ -14,6 +14,9 @@ var SubResources = React.createClass({
 	},
 
 	render: function () {
+		if (!this.props.resource.resources.length)
+			return null;
+
 		return (
 			<DropdownButton
 				id="subresources"

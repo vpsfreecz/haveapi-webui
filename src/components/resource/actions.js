@@ -18,7 +18,13 @@ var ResourceActions = React.createClass({
 	},
 
 	render: function () {
-		var name = this.props.resource._private.name;
+		var name = this.props.resource.getName();
+		var actions = this.props.resource.actions.filter(a => (
+			this.props.resource[a].description.url.indexOf(':'+name+'_id') === -1
+		));
+
+		if (!actions.length)
+			return null;
 
 		return (
 			<DropdownButton
@@ -26,9 +32,7 @@ var ResourceActions = React.createClass({
 				title="Resource actions"
 				className="resource-actions"
 				onSelect={this.setAction}>
-				{this.props.resource.actions.filter(action => (
-					this.props.resource[action].description.url.indexOf(':'+name+'_id') === -1
-				)).map(action => (
+				{actions.map(action => (
 					<MenuItem key={action} eventKey={action}>
 						<ActionName action={action} />
 					</MenuItem>

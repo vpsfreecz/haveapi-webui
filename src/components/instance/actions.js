@@ -17,7 +17,13 @@ var InstanceActions = React.createClass({
 	},
 
 	render: function () {
-		var name = this.props.resource._private.name;
+		var name = this.props.resource.getName();
+		var actions =  this.props.resource.actions.filter(a => (
+			a != 'show' && this.props.resource[a].description.url.indexOf(':'+name+'_id') >= 0
+		));
+
+		if (!actions.length)
+			return null;
 
 		return (
 			<DropdownButton
@@ -25,9 +31,7 @@ var InstanceActions = React.createClass({
 				title="Instance actions"
 				className="instance-actions"
 				onSelect={this.setAction}>
-				{this.props.resource.actions.filter(action => (
-					action != 'show' && this.props.resource[action].description.url.indexOf(':'+name+'_id') >= 0
-				)).map(action => (
+				{actions.map(action => (
 					<MenuItem key={action} eventKey={action}>
 						<ActionName action={action} />
 					</MenuItem>
