@@ -3,7 +3,7 @@ import {Table, Glyphicon} from 'react-bootstrap'
 import ResourceName from './resource_name'
 import {LinkTo, resourcePath} from '../utils'
 
-var ResourceIndex = React.createClass({
+var VersionIndex = React.createClass({
 	unauthenticatedResources: function (resources) {
 		var ret = [];
 		var that = this;
@@ -80,9 +80,9 @@ var ResourceIndex = React.createClass({
 	}
 });
 
-ResourceIndex.contextTypes = {
+VersionIndex.contextTypes = {
 	api: React.PropTypes.object,
 	auth: React.PropTypes.object,
 };
 
-export default ResourceIndex;
+export default VersionIndex;

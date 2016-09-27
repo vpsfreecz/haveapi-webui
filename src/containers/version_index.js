@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import ResourceIndex from '../components/resource_index'
+import VersionIndex from '../components/version_index'
 
 var mapStateToProps = function (state) {
 	console.log('map state to props', state);
@@ -10,4 +10,4 @@ var mapStateToProps = function (state) {
 	return {authenticated: state.authenticated};
 };
 
-module.exports = connect(mapStateToProps)(ResourceIndex);
+module.exports = connect(mapStateToProps)(VersionIndex);

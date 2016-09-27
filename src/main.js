@@ -8,7 +8,7 @@ import ApiSelector from './components/api_selector'
 import ApiVersion from './components/api_version'
 import ApiPage from './containers/api_page'
 import Resource from './components/resource'
-import ResourceIndex from './containers/resource_index'
+import VersionIndex from './containers/version_index'
 import Instance from './components/instance'
 import Action from './components/action'
 import Config from './config';
@@ -28,14 +28,14 @@ ReactDOM.render(
 			{
 				Config.apiUrl ?
 				<Route path="(:version)" component={ApiVersion}>
-					<IndexRoute component={ResourceIndex} />
+					<IndexRoute component={VersionIndex} />
 					{routes}
 				</Route>
 				:
 				<Route path="/" component={BasePage}>
 					<IndexRoute component={ApiSelector} />
 					<Route path=":url" component={ApiVersion}>
-						<IndexRoute component={ResourceIndex} />
+						<IndexRoute component={VersionIndex} />
 						{routes}
 					</Route>
 				</Route>
