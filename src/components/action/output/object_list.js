@@ -1,6 +1,6 @@
 import React from 'react'
 import {Table, Alert, ButtonGroup, Button, Glyphicon} from 'react-bootstrap'
-import OutputParameter from '../../output_parameter'
+import OutputParameter from './parameter'
 import {resourcePath, linkTo} from '../../../utils'
 
 var ObjectList = React.createClass({

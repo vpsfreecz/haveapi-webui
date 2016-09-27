@@ -1,10 +1,7 @@
 import React from 'react'
-import HaveAPI from '../haveapi-client'
-import {Grid, Row, Col, Navbar, NavDropdown, MenuItem} from 'react-bootstrap'
-import ApiPage from '../containers/api_page'
-import Config from '../config'
-import Package from '../package'
-import {LinkTo} from '../utils'
+import HaveAPI from '../../haveapi-client'
+import ApiPage from '../../containers/api_page'
+import Config from '../../config'
 
 var ApiVersion = React.createClass({
 	getInitialState: function () {

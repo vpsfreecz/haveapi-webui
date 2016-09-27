@@ -1,7 +1,7 @@
 import React from 'react'
-import ResourceName from '../components/resource_name'
-import Navigation from '../components/navigation'
-import ResourceActions from '../components/resource_actions'
+import ResourceName from './resource/name'
+import Navigation from './navigation'
+import ResourceActions from './resource/actions'
 import {resolveResource} from '../utils'
 
 var Resource = React.createClass({

@@ -1,7 +1,7 @@
 import React from 'react'
 import {DropdownButton, MenuItem} from 'react-bootstrap'
-import ActionName from './action/name'
-import {linkTo, resourcePath} from '../utils'
+import ActionName from '../action/name'
+import {linkTo, resourcePath} from '../../utils'
 
 var ResourceActions = React.createClass({
 	setAction: function (action) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Col, FormGroup, ControlLabel, FormControl, Checkbox, HelpBlock, InputGroup, Button, Glyphicon} from 'react-bootstrap'
-import {findAssociation} from '../../utils'
-import SelectModal from './input/select_modal'
+import {findAssociation} from '../../../utils'
+import SelectModal from './select_modal'
 
 var InputParameter = React.createClass({
 	getInitialState: function () {

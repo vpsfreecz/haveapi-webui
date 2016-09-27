@@ -1,13 +1,13 @@
 import React from 'react'
-import HaveAPI from '../haveapi-client'
+import HaveAPI from '../../haveapi-client'
 import {Grid, Row, Col, Navbar, Nav, NavDropdown, MenuItem} from 'react-bootstrap'
-import LoginForm from '../containers/login_form'
-import UserInfo from '../containers/user_info'
-import ResourceName from './resource_name'
-import Authentication from '../authentication'
-import Config from '../config'
-import Package from '../package'
-import {LinkTo} from '../utils'
+import LoginForm from '../../containers/login_form'
+import UserInfo from '../../containers/user_info'
+import ResourceName from '../resource/name'
+import Authentication from '../../authentication'
+import Config from '../../config'
+import Package from '../../package'
+import {LinkTo} from '../../utils'
 
 var ApiPage = React.createClass({
 	getInitialState: function () {

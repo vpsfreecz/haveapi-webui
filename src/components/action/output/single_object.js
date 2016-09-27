@@ -1,5 +1,5 @@
 import React from 'react'
-import OutputParameter from '../../output_parameter'
+import OutputParameter from './parameter'
 
 export default React.createClass({
 	render: function () {

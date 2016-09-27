@@ -1,7 +1,7 @@
 import React from 'react'
 import {Breadcrumb} from 'react-bootstrap'
 import {linkTo, resourcePath, capitalize} from '../utils'
-import ResourceName from './resource_name'
+import ResourceName from './resource/name'
 import ActionName from './action/name'
 
 var Navigation = React.createClass({

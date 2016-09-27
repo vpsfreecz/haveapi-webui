@@ -1,6 +1,6 @@
 import React from 'react'
 import {DropdownButton, MenuItem} from 'react-bootstrap'
-import ResourceName from './resource_name'
+import ResourceName from './resource/name'
 import {linkTo, resourcePath} from '../utils'
 
 var SubResources = React.createClass({

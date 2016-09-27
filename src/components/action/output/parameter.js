@@ -1,5 +1,5 @@
 import React from 'react'
-import {LinkTo, resourcePath, findAssociation} from '../utils'
+import {LinkTo, resourcePath, findAssociation} from '../../../utils'
 
 function nl2br (str) {
 	var rx = /(\n|\r\n)/g;

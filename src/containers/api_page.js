@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import ApiPage from '../components/api_page'
+import ApiPage from '../components/api/page'
 
 var mapStateToProps = function (state) {
 	console.log('map state to props', state);

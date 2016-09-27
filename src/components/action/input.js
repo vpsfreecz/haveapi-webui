@@ -1,6 +1,6 @@
 import React from 'react'
 import {Col, Form, FormGroup, Button} from 'react-bootstrap'
-import InputParameter from './input_parameter'
+import InputParameter from './input/parameter'
 
 export default React.createClass({
 	getInitialState: function () {

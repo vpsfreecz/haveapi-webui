@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router';
 import {Row, Col, Form, FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
-import Config from '../config'
+import Config from '../../config'
 
 export default React.createClass({
 	getInitialState: function () {

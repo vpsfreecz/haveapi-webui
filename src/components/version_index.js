@@ -1,6 +1,6 @@
 import React from 'react'
 import {Table, Glyphicon} from 'react-bootstrap'
-import ResourceName from './resource_name'
+import ResourceName from './resource/name'
 import {LinkTo, resourcePath} from '../utils'
 
 var VersionIndex = React.createClass({

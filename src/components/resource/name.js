@@ -1,5 +1,5 @@
 import React from 'react'
-import {resourcePath, capitalize} from '../utils'
+import {resourcePath, capitalize} from '../../utils'
 
 export default function ({resource}) {
 	return (
