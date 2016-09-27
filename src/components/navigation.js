@@ -2,6 +2,7 @@ import React from 'react'
 import {Breadcrumb} from 'react-bootstrap'
 import {linkTo, resourcePath, capitalize} from '../utils'
 import ResourceName from './resource_name'
+import ActionName from './action/name'
 
 var Navigation = React.createClass({
 	renderResources: function (resources, ids) {
@@ -87,7 +88,7 @@ var Navigation = React.createClass({
 				{' '}
 				{this.props.action &&
 					<Breadcrumb.Item className="action" active>
-						{capitalize(this.props.action)}
+						<ActionName action={this.props.action} />
 					</Breadcrumb.Item>
 				}
 			</Breadcrumb>
