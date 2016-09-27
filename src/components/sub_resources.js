@@ -1,35 +1,38 @@
 import React from 'react'
-import {Table} from 'react-bootstrap'
+import {DropdownButton, MenuItem} from 'react-bootstrap'
 import ResourceName from './resource_name'
-import {LinkTo, resourcePath} from '../utils'
+import {linkTo, resourcePath} from '../utils'
 
-export default React.createClass({
+var SubResources = React.createClass({
+	setResource: function (r) {
+		this.context.router.push(linkTo(
+			this.context.api,
+			resourcePath(r).join('.'),
+			'index',
+			this.props.ids,
+		));
+	},
+
 	render: function () {
 		return (
-			<div className="subresources">
-				<h3>Subresources</h3>
-
-				<Table condensed>
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-						</tr>
-					</thead>
-					<tbody>
-						{this.props.resource.resources.map(r => (
-							<tr key={r.getName()}>
-								<td>
-									<LinkTo to={[resourcePath(r).join('.'), 'index', this.props.ids]}>
-										<ResourceName resource={r} />
-									</LinkTo>
-								</td>
-								<td>{r._private.description.description}</td>
-							</tr>
-						))}
-					</tbody>
-				</Table>
-			</div>
+			<DropdownButton
+				id="subresources"
+				title="Sub resources"
+				className="subresources"
+				onSelect={this.setResource}>
+				{this.props.resource.resources.map(r => (
+					<MenuItem key={r.getName()} eventKey={r}>
+						<ResourceName resource={r} />
+					</MenuItem>
+				))}
+			</DropdownButton>
 		);
 	}
 });
+
+SubResources.contextTypes = {
+	router: React.PropTypes.object,
+	api: React.PropTypes.object,
+};
+
+export default SubResources;

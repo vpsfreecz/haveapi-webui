@@ -1,5 +1,7 @@
 import React from 'react'
+import {ButtonGroup, DropdownButton, MenuItem} from 'react-bootstrap'
 import ResourceName from './resource_name'
+import ResourceActions from './resource_actions'
 import InstanceActions from './instance_actions'
 import SubResources from './sub_resources'
 import Output from './action/output'
@@ -44,9 +46,11 @@ var Instance = React.createClass({
 
 		return (
 			<div className="resource-instance">
-				<h2><ResourceName resource={this.state.response} /> #{this.state.response.id}</h2>
-				<InstanceActions resource={this.state.response} />
-				<SubResources resource={this.state.response} ids={this.props.params.ids} />
+				<ButtonGroup>
+					<ResourceActions resource={this.state.response} ids={this.props.params.ids} />
+					<InstanceActions resource={this.state.response} />
+					<SubResources resource={this.state.response} ids={this.props.params.ids} />
+				</ButtonGroup>
 
 				{this.props.children || <Output action={this.state.action} response={this.state.response} />}
 			</div>
