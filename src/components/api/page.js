@@ -8,6 +8,7 @@ import Authentication from '../../authentication'
 import Config from '../../config'
 import Package from '../../package'
 import {LinkTo} from '../../utils'
+import {filterResources} from '../../authorization'
 
 var ApiPage = React.createClass({
 	getInitialState: function () {
@@ -41,7 +42,8 @@ var ApiPage = React.createClass({
 			that.context.api.setup(function () {
 				that.setState({
 					setup: true,
-					resources: that.unauthenticatedResources(
+					resources: filterResources(
+						false,
 						that.context.api.resources
 					).map(r => r.getName()),
 					authenticated: false,
@@ -56,29 +58,16 @@ var ApiPage = React.createClass({
 		if (nextProps.authenticated != this.state.authenticated) {
 			this.setState({
 				setup: true,
-				resources: (nextProps.authenticated ? this.context.api.resources : this.unauthenticatedResources(this.context.api.resources)).map(r => r.getName()),
+				resources: filterResources(
+					nextProps.authenticated,
+					this.context.api.resources
+				).map(r => r.getName()),
 				authenticated: nextProps.authenticated,
 			});
 
 			if (!nextProps.authenticated)
 				this.context.router.replace('/');
 		}
-	},
-
-	unauthenticatedResources: function (resources) {
-		var ret = [];
-		var that = this;
-
-		resources.forEach(function (r) {
-			var unauth = r.actions.find(function (a) {
-				return !r[a].description.auth;
-			});
-
-			if (unauth)
-				ret.push(r);
-		});
-
-		return ret;
 	},
 
 	setVersion: function (v, event) {

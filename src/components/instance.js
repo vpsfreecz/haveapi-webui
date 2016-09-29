@@ -1,9 +1,9 @@
 import React from 'react'
 import {ButtonGroup, DropdownButton, MenuItem} from 'react-bootstrap'
 import ResourceName from './resource/name'
-import ResourceActions from './resource/actions'
-import InstanceActions from './instance/actions'
-import SubResources from './sub_resources'
+import ResourceActions from '../containers/resource_actions'
+import InstanceActions from '../containers/instance_actions'
+import SubResources from '../containers/sub_resources'
 import Output from './action/output'
 import {resolveAction} from '../utils'
 

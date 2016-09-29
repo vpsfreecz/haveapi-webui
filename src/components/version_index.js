@@ -2,32 +2,14 @@ import React from 'react'
 import {Table, Glyphicon} from 'react-bootstrap'
 import ResourceName from './resource/name'
 import {LinkTo, resourcePath} from '../utils'
+import {filterResources} from '../authorization'
 
 var VersionIndex = React.createClass({
-	unauthenticatedResources: function (resources) {
-		var ret = [];
-		var that = this;
-
-		resources.forEach(function (r) {
-			var unauth = r.actions.find(function (a) {
-				return !r[a].description.auth;
-			});
-
-			if (unauth)
-				ret.push(r);
-		});
-
-		return ret;
-	},
-
 	render: function () {
-		var resources;
-
-		if (this.props.authenticated)
-			resources = this.context.api.resources;
-
-		else
-			resources = this.unauthenticatedResources(this.context.api.resources);
+		var resources = filterResources(
+			this.props.authenticated,
+			this.context.api.resources
+		);
 
 		return (
 			<div className="version-index">

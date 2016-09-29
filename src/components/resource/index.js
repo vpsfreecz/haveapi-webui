@@ -2,6 +2,7 @@ import React from 'react'
 import {Table} from 'react-bootstrap'
 import ActionName from '../action/name'
 import {LinkTo, resolveResource} from '../../utils'
+import {filterActions} from '../../authorization'
 
 var ResourceIndex = React.createClass({
 	render: function () {
@@ -19,8 +20,11 @@ var ResourceIndex = React.createClass({
 					</tr>
 				</thead>
 				<tbody>
-					{resource.actions.filter(action => (
-						resource[action].description.url.indexOf(':'+resource.getName()+'_id') === -1
+					{filterActions(
+						this.props.authenticated,
+						resource
+					).filter(action => (
+							resource[action].description.url.indexOf(':'+resource.getName()+'_id') === -1
 					)).map(action => (
 						<tr key={action}>
 							<td>

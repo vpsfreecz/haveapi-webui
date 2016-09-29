@@ -2,6 +2,7 @@ import React from 'react'
 import {DropdownButton, MenuItem} from 'react-bootstrap'
 import ActionName from '../action/name'
 import {linkTo, resourcePath} from '../../utils'
+import {filterActions} from '../../authorization'
 
 var ResourceActions = React.createClass({
 	setAction: function (action) {
@@ -19,7 +20,10 @@ var ResourceActions = React.createClass({
 
 	render: function () {
 		var name = this.props.resource.getName();
-		var actions = this.props.resource.actions.filter(a => (
+		var actions = filterActions(
+			this.props.authenticated,
+			this.props.resource
+		).filter(a => (
 			this.props.resource[a].description.url.indexOf(':'+name+'_id') === -1
 		));
 
