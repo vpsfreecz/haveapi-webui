@@ -1,4 +1,5 @@
 import React from 'react'
+import {Alert} from 'react-bootstrap'
 import HaveAPI from '../../haveapi-client'
 import ApiPage from '../../containers/api_page'
 import Config from '../../config'
@@ -39,7 +40,7 @@ var ApiVersion = React.createClass({
 
 		this.api.availableVersions(function (c, status, versions) {
 			if (!status) {
-				console.log('oops, failed to get versions');
+				that.setState({error: 'unable to fetch API versions'})
 				return;
 			}
 
@@ -65,6 +66,15 @@ var ApiVersion = React.createClass({
 
 			return (
 				<ApiPage {...this.props} />
+			);
+
+		} else if (this.state.error) {
+			return (
+				<Alert bsStyle="warning">
+					<strong>Setup failed:</strong>
+					{' '}
+					{this.state.error}
+				</Alert>
 			);
 
 		} else return <h2>Loading...</h2>;
