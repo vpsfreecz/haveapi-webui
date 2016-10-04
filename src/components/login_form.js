@@ -69,13 +69,17 @@ var LoginForm = React.createClass({
 						placeholder="Username"
 						value={this.state.username}
 						onChange={e => this.handleChange(e, 'username')} />
+					{' '}
 					<FormControl
 						type="password"
 						placeholder="Password"
 						value={this.state.password}
 						onChange={e => this.handleChange(e, 'password')} />
+				</FormGroup>
 
-					{methods.length > 1 && (
+				{methods.length > 1 && (
+					<FormGroup>
+						{' '}
 						<FormControl
 							componentClass="select"
 							value={this.state.method}
@@ -84,9 +88,10 @@ var LoginForm = React.createClass({
 								<option key={auth.name}>{auth.name}</option>
 							))}
 						</FormControl>
-						)}
-					<Button type="submit">Login</Button>
-				</FormGroup>
+					</FormGroup>
+				)}
+				{' '}
+				<Button type="submit">Login</Button>
 			</form>
 		);
 	}
