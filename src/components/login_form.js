@@ -28,9 +28,6 @@ var LoginForm = React.createClass({
 			username: this.state.username,
 			password: this.state.password,
 		}, function (c, status) {
-			// TODO
-			// Show error when failed
-
 			if (status) {
 				that.setState(Object.assign({}, that.state, {
 					username: '',
@@ -40,6 +37,7 @@ var LoginForm = React.createClass({
 			} else {
 				that.setState(Object.assign({}, that.state, {
 					password: '',
+					error: true,
 				}));
 			}
 		});
@@ -62,7 +60,7 @@ var LoginForm = React.createClass({
 
 		return (
 			<form onSubmit={this.login}>
-				<FormGroup>
+				<FormGroup validationState={this.state.error ? 'error' : undefined}>
 					<FormControl
 						type="text"
 						placeholder="Username"
