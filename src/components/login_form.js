@@ -58,6 +58,9 @@ var LoginForm = React.createClass({
 
 		var methods = this.context.auth.getSupportedMethods();
 
+		if (!methods.length)
+			return null;
+
 		return (
 			<form onSubmit={this.login}>
 				<FormGroup validationState={this.state.error ? 'error' : undefined}>
