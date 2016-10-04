@@ -1,4 +1,5 @@
 import React from 'react'
+import {Alert} from 'react-bootstrap'
 import HaveAPI from '../../haveapi-client'
 import {Grid, Row, Col, Navbar, Nav, NavDropdown, MenuItem} from 'react-bootstrap'
 import LoginForm from '../../containers/login_form'
@@ -39,7 +40,12 @@ var ApiPage = React.createClass({
 				return;
 			}
 
-			that.context.api.setup(function () {
+			that.context.api.setup(function (c, status) {
+				if (!status) {
+					that.setState({error: 'unable to fetch API description'});
+					return;
+				}
+
 				that.setState({
 					setup: true,
 					resources: filterResources(
@@ -135,6 +141,15 @@ var ApiPage = React.createClass({
 							</p>
 					</footer>
 				</div>
+			);
+
+		} else if (this.state.error) {
+			return (
+				<Alert bsStyle="warning">
+					<strong>Setup failed:</strong>
+					{' '}
+					{this.state.error}
+				</Alert>
 			);
 
 		} else return <h2>Loading...</h2>;
