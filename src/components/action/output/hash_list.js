@@ -3,7 +3,7 @@ import {Table, Alert, ButtonGroup, Button, Glyphicon} from 'react-bootstrap'
 import OutputParameter from './parameter'
 import {resourcePath, linkTo} from '../../../utils'
 
-var ObjectList = React.createClass({
+var HashList = React.createClass({
 	getActionButtons: function (r) {
 		var ret = [];
 
@@ -69,7 +69,7 @@ var ObjectList = React.createClass({
 	},
 
 	render: function () {
-		var list = this.props.response;
+		var list = this.props.response.response();
 
 		if (!list.length)
 			return (
@@ -92,11 +92,11 @@ var ObjectList = React.createClass({
 					</tr>
 				</thead>
 				<tbody>
-					{this.props.response.items.map(r => (
+					{list.map(r => (
 						<tr key={r.id || ('object-' + i++)}>
 							<td>
 								<ButtonGroup>
-									{this.getActionButtons(r)}
+									{this.getActionButtons(this.props.action.resource)}
 								</ButtonGroup>
 							</td>
 							{cols.map(c => (
@@ -116,9 +116,9 @@ var ObjectList = React.createClass({
 	}
 });
 
-ObjectList.contextTypes = {
+HashList.contextTypes = {
 	api: React.PropTypes.object,
 	router: React.PropTypes.object,
 };
 
-export default ObjectList;
+export default HashList;

@@ -14,7 +14,7 @@ export default React.createClass({
 							<OutputParameter
 								name={p}
 								resource={this.props.action.resource}
-								object={this.props.response}
+								object={this.props.response.response()}
 								desc={output_params[p]} />
 						</dd>
 					</div>

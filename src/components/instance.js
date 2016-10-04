@@ -5,7 +5,7 @@ import ResourceActions from '../containers/resource_actions'
 import InstanceActions from '../containers/instance_actions'
 import SubResources from '../containers/sub_resources'
 import Output from './action/output'
-import {resolveAction} from '../utils'
+import {resolveResource, resolveAction} from '../utils'
 
 var Instance = React.createClass({
 	getInitialState: function () {
@@ -44,12 +44,14 @@ var Instance = React.createClass({
 		if (!this.state.response)
 			return <p>Fetching...</p>;
 
+		var resource = resolveResource(this.context.api, this.props.params.resources);
+
 		return (
 			<div className="resource-instance">
 				<ButtonGroup>
-					<ResourceActions resource={this.state.response} ids={this.props.params.ids} />
-					<InstanceActions resource={this.state.response} />
-					<SubResources resource={this.state.response} ids={this.props.params.ids} />
+					<ResourceActions resource={resource} ids={this.props.params.ids} />
+					<InstanceActions resource={resource} />
+					<SubResources resource={resource} ids={this.props.params.ids} />
 				</ButtonGroup>
 
 				{this.props.children || <Output action={this.state.action} response={this.state.response} />}
