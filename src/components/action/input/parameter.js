@@ -87,9 +87,40 @@ var InputParameter = React.createClass({
 		);
 	},
 
+	optionChoices: function () {
+		var values = this.props.desc.validators.include.values;
+
+		if (values instanceof Array)
+			return values.map(v => ({value: v, label: v}));
+
+		var ret = [];
+
+		for (var v in values) {
+			if (!values.hasOwnProperty(v))
+				continue;
+
+			ret.push({value: v, label: values[v]});
+		}
+
+		return ret;
+	},
+
 	fieldForParam: function () {
 		var def = this.props.desc.default || '';
 		var val = this.state.value || '';
+
+		if (this.props.desc.validators && this.props.desc.validators.include) {
+			return (
+				<FormControl componentClass="select"
+					value={val}
+					onChange={this.handleChange}>
+					<option value="">---</option>
+					{this.optionChoices().map(v => (
+						<option key={v.value} value={v.value}>{v.label}</option>
+					))}
+				</FormControl>
+			);
+		}
 
 		switch (this.props.desc.type) {
 			case 'String':
@@ -103,7 +134,6 @@ var InputParameter = React.createClass({
 				return <FormControl type="number" placeholder={def} value={val} onChange={this.handleChange} />;
 
 			case 'Boolean':
-				console.log('ffp', this.props.name, this.state, val);
 				return <Checkbox checked={val ? true : false} onChange={this.handleCheckbox} />;
 
 			case 'Text':
