@@ -9,6 +9,7 @@ var Action = React.createClass({
 	getInitialState: function () {
 		return {
 			response: null,
+			executing: false,
 		};
 	},
 
@@ -18,10 +19,15 @@ var Action = React.createClass({
 
 	execute: function (params) {
 		console.log('call action!');
+		this.setState({executing: true});
+
 		var that = this;
 
 		this.props.action.invoke(params, function (c, reply) {
-			that.setState({response: reply});
+			that.setState({
+				response: reply,
+				executing: false,
+			});
 		});
 	},
 
@@ -29,7 +35,10 @@ var Action = React.createClass({
 		return (
 			<div>
 				<h2>Action <ActionName action={this.props.params.action} /></h2>
-				<Input action={this.props.action} onSubmit={this.execute} />
+				<Input
+					action={this.props.action}
+					onSubmit={this.execute}
+					executing={this.state.executing} />
 				<Output action={this.props.action} response={this.state.response} />
 			</div>
 		);

@@ -8,6 +8,7 @@ var IndexAction = React.createClass({
 	getInitialState: function () {
 		return {
 			response: null,
+			executing: false,
 		};
 	},
 
@@ -37,11 +38,15 @@ var IndexAction = React.createClass({
 
 	execute: function (props, params) {
 		console.log('call action!');
+		this.setState({executing: true});
 
 		var that = this;
 
 		props.action.invoke(params, function (c, reply) {
-			that.setState({response: reply});
+			that.setState({
+				response: reply,
+				executing: false,
+			});
 		});
 	},
 
@@ -85,7 +90,11 @@ var IndexAction = React.createClass({
 		return (
 			<div>
 				<h2>Action <ActionName action={this.props.params.action} /></h2>
-				<Input action={this.props.action} onSubmit={this.redirect} initialData={this.getParams()} />
+				<Input
+					action={this.props.action}
+					onSubmit={this.redirect}
+					initialData={this.getParams()}
+					executing={this.state.executing} />
 				<Output action={this.props.action} response={this.state.response} />
 			</div>
 		);

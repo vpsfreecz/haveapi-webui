@@ -65,7 +65,11 @@ export default React.createClass({
 				))}
 				<FormGroup>
 					<Col sm={10} smOffset={2}>
-						<Button type="submit">Execute</Button>
+						{this.props.executing ? (
+							<Button type="submit" disabled>Executing...</Button>
+						) : (
+							<Button type="submit">Execute</Button>
+						)}
 					</Col>
 				</FormGroup>
 			</Form>
