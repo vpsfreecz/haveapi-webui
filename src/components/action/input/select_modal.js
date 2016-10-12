@@ -9,6 +9,7 @@ var SelectModal = React.createClass({
 	getInitialState: function () {
 		return {
 			response: null,
+			executing: false,
 		};
 	},
 
@@ -22,10 +23,15 @@ var SelectModal = React.createClass({
 
 	execute: function (params) {
 		console.log('call action!');
+		this.setState({executing: true});
+
 		var that = this;
 
 		this.getAction().invoke(params, function (c, reply) {
-			that.setState({response: reply});
+			that.setState({
+				response: reply,
+				executing: false,
+			});
 		});
 	},
 
@@ -50,7 +56,8 @@ var SelectModal = React.createClass({
 					<Input
 						action={action}
 						onSubmit={this.execute}
-						errors={actionErrors(this.state.response)} />
+						errors={actionErrors(this.state.response)}
+						executing={this.state.executing} />
 					<Output
 						action={action}
 						response={this.state.response}
