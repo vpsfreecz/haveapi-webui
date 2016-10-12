@@ -74,6 +74,15 @@ var LinkTo = React.createClass({
 	}
 });
 
+export function actionErrors (response) {
+	if (!response)
+		return {};
+
+	var realResponse = response.apiResponse ? response.apiResponse() : response;
+
+	return realResponse.envelope.errors || {};
+}
+
 LinkTo.contextTypes = {
 	api: React.PropTypes.object,
 };

@@ -3,7 +3,7 @@ import {LinkTo} from '../../utils'
 import ActionName from './name'
 import Input from './input'
 import Output from './output'
-import {resolveAction} from '../../utils'
+import {resolveAction, actionErrors} from '../../utils'
 
 var Action = React.createClass({
 	getInitialState: function () {
@@ -38,6 +38,7 @@ var Action = React.createClass({
 				<Input
 					action={this.props.action}
 					onSubmit={this.execute}
+					errors={actionErrors(this.state.response)}
 					executing={this.state.executing} />
 				<Output action={this.props.action} response={this.state.response} />
 			</div>

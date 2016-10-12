@@ -61,6 +61,7 @@ export default React.createClass({
 						name={p}
 						desc={params[p]}
 						initialValue={this.state[p] === undefined ? '' : this.state[p]}
+						errors={this.props.errors[p]}
 						onChange={this.handleChange.bind(this, p)} />
 				))}
 				<FormGroup>

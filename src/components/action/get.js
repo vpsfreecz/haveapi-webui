@@ -1,5 +1,5 @@
 import React from 'react'
-import {LinkTo, linkTo} from '../../utils'
+import {LinkTo, linkTo, actionErrors} from '../../utils'
 import ActionName from './name'
 import Input from './input'
 import Output from './output'
@@ -94,6 +94,7 @@ var IndexAction = React.createClass({
 					action={this.props.action}
 					onSubmit={this.redirect}
 					initialData={this.getParams()}
+					errors={actionErrors(this.state.response)}
 					executing={this.state.executing} />
 				<Output action={this.props.action} response={this.state.response} />
 			</div>

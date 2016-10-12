@@ -1,6 +1,6 @@
 import React from 'react'
 import {Modal, Button} from 'react-bootstrap'
-import {findAssociation} from '../../../utils'
+import {findAssociation, actionErrors} from '../../../utils'
 import ResourceName from '../../resource/name'
 import Input from '../input'
 import Output from '../output'
@@ -47,7 +47,10 @@ var SelectModal = React.createClass({
 					Select <ResourceName resource={action.resource} />
 				</Modal.Header>
 				<Modal.Body>
-					<Input action={action} onSubmit={this.execute} />
+					<Input
+						action={action}
+						onSubmit={this.execute}
+						errors={actionErrors(this.state.response)} />
 					<Output
 						action={action}
 						response={this.state.response}

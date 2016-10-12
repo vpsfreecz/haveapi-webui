@@ -235,13 +235,21 @@ var InputParameter = React.createClass({
 
 	render: function () {
 		return (
-			<FormGroup>
+			<FormGroup validationState={this.props.errors ? 'error' : undefined}>
 				<Col componentClass={ControlLabel} sm={2}>
 					{this.props.desc.label || this.props.name}:
 				</Col>
 				<Col sm={10}>
 					{this.fieldForParam()}
-					<HelpBlock>{this.props.desc.description || ''}</HelpBlock>
+					<FormControl.Feedback />
+					<HelpBlock>
+						{this.props.desc.description || ''}
+						{this.props.errors && (
+							<p className="errors">
+								{this.props.errors.join('; ')}
+							</p>
+						)}
+					</HelpBlock>
 				</Col>
 			</FormGroup>
 		);
