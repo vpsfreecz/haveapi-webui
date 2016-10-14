@@ -1,3 +1,4 @@
+import path from 'path'
 import React from 'react'
 import {Link} from 'react-router'
 import Config from './config'
@@ -17,7 +18,7 @@ export function linkTo (api, ...args) {
 	if (Config.history.mode == 'browser' && Config.history.prefix)
 		prefix = Config.history.prefix;
 
-	return prefix + ret.concat(args).join('/');
+	return path.join(prefix, ret.concat(args).join('/'));
 }
 
 export function absLinkTo (...args) {
@@ -30,9 +31,9 @@ export function absLinkTo (...args) {
 
 		case 'browser':
 			if (Config.history.prefix)
-				return Config.history.prefix + link;
+				return path.join(Config.history.prefix, link);
 
-			return '/' + link;
+			return path.join('/', link);
 
 		default:
 			return '#' + link;
