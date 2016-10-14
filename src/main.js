@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, IndexRoute, Route, hashHistory} from 'react-router'
+import {Router, IndexRoute, Route, hashHistory, browserHistory} from 'react-router'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import BasePage from './components/base_page'
@@ -16,6 +16,22 @@ import Config from './config';
 import {reducer} from './reducers'
 
 var store = createStore(reducer);
+var history, prefix = '/';
+
+switch (Config.history.mode) {
+	case 'hash':
+		history = hashHistory;
+		break;
+
+	case 'browser':
+		history = browserHistory;
+		prefix = Config.history.prefix || '/';
+		break;
+
+	default:
+		history = hashHistory;
+}
+
 var routes = (
 		<Route path=":resources" component={Resource}>
 			<IndexRoute component={ResourceIndex} />
@@ -28,15 +44,15 @@ var routes = (
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router history={hashHistory}>
+		<Router history={history}>
 			{
 				Config.apiUrl ?
-				<Route path="(:version)" component={ApiVersion}>
+				<Route path={prefix + "(:version)"} component={ApiVersion}>
 					<IndexRoute component={VersionIndex} />
 					{routes}
 				</Route>
 				:
-				<Route path="/" component={BasePage}>
+				<Route path={prefix} component={BasePage}>
 					<IndexRoute component={ApiSelector} />
 					<Route path=":url" component={ApiVersion}>
 						<IndexRoute component={VersionIndex} />

@@ -12,7 +12,31 @@ export function linkTo (api, ...args) {
 
 	ret.push(api._private.currentVersion);
 
-	return '/' + ret.concat(args).join('/');
+	var prefix = '/';
+
+	if (Config.history.mode == 'browser' && Config.history.prefix)
+		prefix = Config.history.prefix;
+
+	return prefix + ret.concat(args).join('/');
+}
+
+export function absLinkTo (...args) {
+	var prefix;
+	var link = linkTo.apply(null, args);
+
+	switch (Config.history.mode) {
+		case 'hash':
+			return '#' + link;
+
+		case 'browser':
+			if (Config.history.prefix)
+				return Config.history.prefix + link;
+
+			return '/' + link;
+
+		default:
+			return '#' + link;
+	}
 }
 
 export function resolveResource (api, resources) {

@@ -3,7 +3,8 @@ HaveAPI WebUI
 
 Generic web UI for any [HaveAPI](https://github.com/vpsfreecz/haveapi)
 based API. The user can browse through all accessible API resources, invoke
-actions and set and view action parameters.
+actions and set and view action parameters. It can be built to run from any
+directory, locally or being served by a web server.
 
 It uses [haveapi-client-js](https://github.com/vpsfreecz/haveapi-client-js) to
 communicate with the API servers (currently it needs `haveapi-client-js` from `master`).
@@ -17,11 +18,10 @@ Demo
 Build
 -----
 
-Install all dependencies and [webpack](https://webpack.github.io/). Run `webpack`
-in the project directory:
+Install all dependencies and run `gulp` in the project directory.
 
-    $ npm install && npm install -g webpack
-    $ webpack
+    $ npm install && npm install -g gulp
+    $ gulp
 
 Deployment
 ----------
@@ -32,10 +32,12 @@ browser directly.
 Configuration
 -------------
 
-See [haveapi-webui.config.js](haveapi-webui.config.js). Generally, the UI can
-ask for URL of the API server you wish to work with or it can be built with
-a specific API URL.
+`haveapi-webui` can ask for URL of the API server you wish to work with or it
+can be built with a specific API URL. It is also possible to select which
+history type to use -- hash history working everywhere and browser history
+for production use.
 
+See [haveapi-webui.config.js](haveapi-webui.config.js) for more information.
 Note that the app must be rebuilt for the config changes to take effect.
 
 License

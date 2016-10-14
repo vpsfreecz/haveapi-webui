@@ -1,6 +1,6 @@
 import React from 'react'
 import {Breadcrumb} from 'react-bootstrap'
-import {linkTo, resourcePath, capitalize} from '../utils'
+import {absLinkTo, resourcePath, capitalize} from '../utils'
 import ResourceName from './resource/name'
 import ActionName from './action/name'
 
@@ -59,7 +59,7 @@ var Navigation = React.createClass({
 			<Breadcrumb.Item
 				key={resource}
 				className="resource"
-				href={'#'+linkTo(this.context.api, path.join('.'), 'index', resourcePathIds.join(','))}>
+				href={absLinkTo(this.context.api, path.join('.'), 'index', resourcePathIds.join(','))}>
 				<span className="name">
 					{resource.split('_').map(r => (capitalize(r))).join(' ')}
 				</span>
@@ -70,7 +70,7 @@ var Navigation = React.createClass({
 			ret.push(
 				<Breadcrumb.Item
 					key={resource + showId}
-					href={'#'+linkTo(this.context.api, path.join('.'), 'show', pathIds.join(','))}>
+					href={absLinkTo(this.context.api, path.join('.'), 'show', pathIds.join(','))}>
 				#{showId}
 			</Breadcrumb.Item>
 			);
@@ -82,7 +82,7 @@ var Navigation = React.createClass({
 	render: function () {
 		return (
 			<Breadcrumb className="navigation">
-				<Breadcrumb.Item href="#/">Resources</Breadcrumb.Item>
+				<Breadcrumb.Item href={absLinkTo(this.context.api)}>Resources</Breadcrumb.Item>
 				{' '}
 				{this.renderResources()}
 				{' '}
