@@ -30,9 +30,6 @@ export function absLinkTo (...args) {
 			return '#' + link;
 
 		case 'browser':
-			if (Config.history.prefix)
-				return path.join(Config.history.prefix, link);
-
 			return path.join('/', link);
 
 		default:
