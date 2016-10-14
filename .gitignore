@@ -1,2 +1,4 @@
 node_modules
 *.swp
+dist/index.html
+dist/js/bundle.js
