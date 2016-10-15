@@ -54,7 +54,7 @@ ReactDOM.render(
 				:
 				<Route path={prefix} component={BasePage}>
 					<IndexRoute component={ApiSelector} />
-					<Route path=":url" component={ApiVersion}>
+					<Route path=":url(/:version)" component={ApiVersion}>
 						<IndexRoute component={VersionIndex} />
 						{routes}
 					</Route>

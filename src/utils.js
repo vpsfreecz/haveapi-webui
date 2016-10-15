@@ -6,10 +6,8 @@ import Config from './config'
 export function linkTo (api, ...args) {
 	var ret = [];
 
-	if (!Config.apiUrl && api) {
-		ret.push('api');
+	if (!Config.apiUrl && api)
 		ret.push(encodeURIComponent(api._private.url));
-	}
 
 	ret.push(api._private.currentVersion);
 
