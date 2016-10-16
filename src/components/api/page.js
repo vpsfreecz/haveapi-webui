@@ -8,7 +8,7 @@ import ResourceName from '../resource/name'
 import Authentication from '../../authentication'
 import Config from '../../config'
 import Package from '../../package'
-import {LinkTo} from '../../utils'
+import LinkTo from '../link'
 import {filterResources} from '../../authorization'
 
 var ApiPage = React.createClass({

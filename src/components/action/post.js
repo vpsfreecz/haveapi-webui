@@ -1,5 +1,4 @@
 import React from 'react'
-import {LinkTo} from '../../utils'
 import ActionName from './name'
 import Input from './input'
 import Output from './output'

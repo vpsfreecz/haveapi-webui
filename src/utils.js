@@ -1,6 +1,5 @@
 import path from 'path'
 import React from 'react'
-import {Link} from 'react-router'
 import Config from './config'
 
 export function linkTo (api, ...args) {
@@ -80,20 +79,6 @@ export function capitalize (str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-var LinkTo = React.createClass({
-	render: function () {
-		var link;
-
-		if (this.props.to instanceof Array)
-			link = linkTo(this.context.api, ...this.props.to);
-
-		else
-			link = linkTo(this.context.api, this.props.to);
-
-		return <Link to={link} className={this.props.className}>{this.props.children}</Link>;
-	}
-});
-
 export function actionErrors (response) {
 	if (!response)
 		return {};
@@ -102,9 +87,3 @@ export function actionErrors (response) {
 
 	return realResponse.envelope.errors || {};
 }
-
-LinkTo.contextTypes = {
-	api: React.PropTypes.object,
-};
-
-export {LinkTo};

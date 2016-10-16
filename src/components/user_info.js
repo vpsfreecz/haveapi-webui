@@ -1,6 +1,6 @@
 import React from 'react'
 import {Navbar} from 'react-bootstrap'
-import {LinkTo} from '../utils'
+import LinkTo from './link'
 import Config from '../config'
 
 var UserInfo = React.createClass({

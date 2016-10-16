@@ -1,5 +1,4 @@
 import React from 'react'
-import {LinkTo} from '../utils'
 import GetAction from './action/get'
 import PostAction from './action/post'
 import {resolveAction} from '../utils'

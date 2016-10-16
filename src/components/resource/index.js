@@ -1,7 +1,8 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
 import ActionName from '../action/name'
-import {LinkTo, resolveResource} from '../../utils'
+import LinkTo from '../link'
+import {resolveResource} from '../../utils'
 import {filterActions} from '../../authorization'
 
 var ResourceIndex = React.createClass({

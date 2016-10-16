@@ -1,5 +1,5 @@
 import React from 'react'
-import {LinkTo, linkTo, actionErrors} from '../../utils'
+import {linkTo, actionErrors} from '../../utils'
 import ActionName from './name'
 import Input from './input'
 import Output from './output'
