@@ -1,6 +1,6 @@
 import React from 'react'
 import {Alert} from 'react-bootstrap'
-import HaveAPI from '../../haveapi-client'
+import HaveAPI from 'haveapi-client'
 import {Grid, Row, Col, Navbar, Nav, NavDropdown, MenuItem} from 'react-bootstrap'
 import LoginForm from '../../containers/login_form'
 import UserInfo from '../../containers/user_info'

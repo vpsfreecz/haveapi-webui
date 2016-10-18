@@ -12,7 +12,7 @@
     "url": "https://github.com/vpsfreecz/haveapi-webui"
   },
   "dependencies": {
-    "haveapi-client": "^0.5.2",
+    "haveapi-client": "^0.6.0",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",

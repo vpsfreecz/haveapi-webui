@@ -1,6 +1,6 @@
 import React from 'react'
 import {Alert} from 'react-bootstrap'
-import HaveAPI from '../../haveapi-client'
+import HaveAPI from 'haveapi-client'
 import ApiPage from '../../containers/api_page'
 import {linkTo} from '../../utils'
 import Config from '../../config'
