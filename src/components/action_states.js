@@ -13,15 +13,18 @@ var ActionStates = React.createClass({
 	fetchStates: function () {
 		var that = this;
 
-		this.context.api.action_state.index(function (c, reply) {
-			var newStates = reply.response();
+		this.context.api.action_state.index({
+			params: {limit: 20},
+			onReply: function (c, reply) {
+				var newStates = reply.response();
 
-			if (that.statesChanged(newStates)) {
-				that.lastStates = newStates;
-				that.props.setActionStates(newStates);
+				if (that.statesChanged(newStates)) {
+					that.lastStates = newStates;
+					that.props.setActionStates(newStates);
+				}
+
+				that.timeout = setTimeout(that.fetchStates, 3000);
 			}
-
-			that.timeout = setTimeout(that.fetchStates, 3000);
 		});
 	},
 
