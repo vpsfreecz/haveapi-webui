@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table, ProgressBar} from 'react-bootstrap'
+import {Table, ProgressBar, Button, Glyphicon} from 'react-bootstrap'
 
 var ActionStates = React.createClass({
 	componentDidMount: function () {
@@ -46,11 +46,16 @@ var ActionStates = React.createClass({
 		return false;
 	},
 
+	cancelAction: function (id) {
+		this.context.api.action_state.cancel(id);
+	},
+
 	render: function () {
 		return (
 			<Table striped condensed hover className="action-states">
 				<thead>
 					<tr>
+						<th></th>
 						<th className="created-at">Started at</th>
 						<th className="action">Action</th>
 						<th className="state">State</th>
@@ -60,6 +65,17 @@ var ActionStates = React.createClass({
 				<tbody>
 					{this.props.actionStates.map(state => (
 						<tr key={state.id}>
+							<td>
+								{state.can_cancel && (
+									<Button
+										bsSize="xs"
+										key="cancel"
+										title="Cancel"
+										onClick={e => this.cancelAction(state.id)} >
+										<Glyphicon glyph="remove" />
+									</Button>
+								)}
+							</td>
 							<td>{new Date(state.created_at).toLocaleString()}</td>
 							<td>{state.label}</td>
 							<td>{state.status ? 'Executing' : 'Failing'}</td>
