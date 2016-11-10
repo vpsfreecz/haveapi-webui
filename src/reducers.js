@@ -19,6 +19,7 @@ export function reducer (state, action) {
 		case 'LOGOUT':
 			return Object.assign({}, state, {
 				authenticated: false,
+				actionStates: [],
 			});
 
 		case 'ACTION_STATES':
