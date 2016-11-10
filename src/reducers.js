@@ -3,6 +3,7 @@ export function reducer (state, action) {
 		return {
 			authenticated: false,
 			username: null,
+			actionStates: [],
 		};
 	}
 
@@ -18,6 +19,11 @@ export function reducer (state, action) {
 		case 'LOGOUT':
 			return Object.assign({}, state, {
 				authenticated: false,
+			});
+
+		case 'ACTION_STATES':
+			return Object.assign({}, state, {
+				actionStates: action.opts,
 			});
 	}
 

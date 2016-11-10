@@ -1,9 +1,10 @@
 import React from 'react'
 import {Alert} from 'react-bootstrap'
 import HaveAPI from 'haveapi-client'
-import {Grid, Row, Col, Navbar, Nav, NavDropdown, MenuItem} from 'react-bootstrap'
+import {Grid, Row, Col, Navbar, Nav, NavDropdown, MenuItem, Tabs, Tab, Badge} from 'react-bootstrap'
 import LoginForm from '../../containers/login_form'
 import UserInfo from '../../containers/user_info'
+import ActionStates from '../../containers/action_states'
 import ResourceName from '../resource/name'
 import Authentication from '../../authentication'
 import Config from '../../config'
@@ -84,6 +85,32 @@ var ApiPage = React.createClass({
 		if (this.state.setup) {
 			var apiUrl = Config.apiUrl || this.props.params.url;
 
+			var content;
+
+			if (this.context.api.action_state) {
+				content = (
+					<Tabs id="content-tab" defaultActiveKey={0} animation={false}>
+						<Tab eventKey={0} title="Resources">
+							<div className="resource">
+								{this.props.children}
+							</div>
+						</Tab>
+						<Tab
+							eventKey={1}
+							title={<span>Action states <Badge>{this.props.actionStates.length}</Badge></span>}>
+							<ActionStates />
+						</Tab>
+					</Tabs>
+				);
+
+			} else {
+				content = (
+					<div className="resource">
+						{this.props.children}
+					</div>
+				);
+			}
+
 			return (
 				<div className="api">
 					<Navbar fluid>
@@ -128,9 +155,7 @@ var ApiPage = React.createClass({
 								</ul>
 							</Col>
 							<Col md={10}>
-								<div className="resource">
-									{this.props.children}
-								</div>
+								{content}
 							</Col>
 						</Row>
 					</Grid>

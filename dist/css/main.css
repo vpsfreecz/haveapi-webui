@@ -16,6 +16,18 @@ ul.resource-list li.active {
     width: 30%;
 }
 
+.action-states .progress-bar {
+	min-width: 15em;
+}
+
+.action-states th.created-at {
+	width: 15%;
+}
+
+.action-states th.progress-col {
+	width: 50%;
+}
+
 footer {
     width: 100%;
     height: 40px;
