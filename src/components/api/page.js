@@ -35,7 +35,7 @@ var ApiPage = React.createClass({
 			if (status) {
 				that.setState({
 					setup: true,
-					resources: that.context.api.resources.map(r => r.getName()),
+					resources: that.context.api.resources.map(r => r.getName()).sort(),
 					authenticated: true,
 				});
 				return;
