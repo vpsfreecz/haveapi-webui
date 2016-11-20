@@ -143,7 +143,7 @@ var ApiPage = React.createClass({
 
 					<Grid fluid>
 						<Row>
-							<Col md={2} className="sidebar">
+							<Col xs={12} sm={2} className="sidebar">
 								<ul className="resource-list">
 									{this.state.resources.map(r => (
 										<li key={r} className={r == this.props.params.resource ? 'active' : ''}>
@@ -154,7 +154,7 @@ var ApiPage = React.createClass({
 									))}
 								</ul>
 							</Col>
-							<Col md={10} mdOffset={2} className="content">
+							<Col xs={12} sm={10} smOffset={2} className="content">
 								{content}
 							</Col>
 						</Row>

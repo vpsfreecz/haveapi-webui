@@ -12,14 +12,25 @@ nav.navbar {
 }
 
 .sidebar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100%;
-	padding-top: 70px;
-	background-color: #f8f8f8;
-	border-right: 1px solid #e7e7e7;
-	z-index: 1;
+    background-color: #f8f8f8;
+    border-right: 1px solid #e7e7e7;
+}
+
+@media screen and (max-width: 767px) {
+    .sidebar {
+            padding-top: 10px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 70px;
+            z-index: 1;
+    }
 }
 
 ul.resource-list li {
