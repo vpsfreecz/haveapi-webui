@@ -7,13 +7,14 @@ actions and set and view action parameters. It can be built to run from any
 directory, locally or being served by a web server.
 
 It uses [haveapi-client-js](https://github.com/vpsfreecz/haveapi-client-js) to
-communicate with the API servers (currently it needs `haveapi-client-js` from `master`).
+communicate with the API servers.
 
 Demo
 ----
 
- - API independent: https://projects.vpsfree.cz/haveapi-webui/master/general/
- - Aimed at api.vpsfree.cz: https://projects.vpsfree.cz/haveapi-webui/master/vpsfree/
+All versions of `haveapi-webui` are available at https://webui.haveapi.org.
+If you wish to try it with an existing API, enter `https://api.vpsfree.cz` as the API
+URL.
 
 Build
 -----
