@@ -1,7 +1,7 @@
 {
   "name": "haveapi-webui",
-  "version": "0.6.0",
-  "description": "",
+  "version": "0.7.0",
+  "description": "Generic web UI for any HaveAPI based API",
   "license": "MIT",
   "author": {
     "name": "Jakub Skokan",
@@ -12,7 +12,7 @@
     "url": "https://github.com/vpsfreecz/haveapi-webui"
   },
   "dependencies": {
-    "haveapi-client": "^0.6.0",
+    "haveapi-client": "^0.7.0",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
