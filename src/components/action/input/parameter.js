@@ -2,6 +2,7 @@ import React from 'react'
 import {Col, FormGroup, ControlLabel, FormControl, Checkbox, HelpBlock, InputGroup, Button, Glyphicon} from 'react-bootstrap'
 import {findAssociation} from '../../../utils'
 import SelectModal from './select_modal'
+import PasswordField from './password_field'
 
 var InputParameter = React.createClass({
 	getInitialState: function () {
@@ -108,6 +109,15 @@ var InputParameter = React.createClass({
 	fieldForParam: function () {
 		var def = this.props.desc.default || '';
 		var val = this.state.value || '';
+
+		if (this.props.desc.protected) {
+			return (
+				<PasswordField
+					placeholder={def}
+					value={val}
+					onChange={this.handleChange} />
+			);
+		}
 
 		if (this.props.desc.validators && this.props.desc.validators.include) {
 			return (
