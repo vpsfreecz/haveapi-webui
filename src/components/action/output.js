@@ -16,7 +16,8 @@ export default React.createClass({
 		if (!this.props.response.isOk())
 			return <ActionError response={this.props.response} />;
 
-		if (Object.keys(this.props.action.description.output.parameters).length === 0) {
+		if (this.props.action.description.output === null
+			  || Object.keys(this.props.action.description.output.parameters).length === 0) {
 			return (
 				<Alert bsStyle="info">
 					Action was sucessfully executed.

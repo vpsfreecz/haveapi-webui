@@ -51,7 +51,10 @@ export default React.createClass({
 	},
 
 	render: function () {
-		var params = this.props.action.description.input.parameters;
+		var params = {};
+
+		if (this.props.action.description.input)
+			params = this.props.action.description.input.parameters;
 
 		return (
 			<Form horizontal onSubmit={this.submit}>
